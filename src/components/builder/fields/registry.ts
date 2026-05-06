@@ -3,16 +3,12 @@ import type { UseFormReturn } from "react-hook-form";
 import type { LucideIcon } from "lucide-react";
 import type { Category } from "../schemas/base-schema";
 
-import { TextField } from "./text";
+import { CATEGORIES } from "../schemas/base-schema";
 import { HeadingField } from "./heading";
 import { OptionsField } from "./options";
 import { DividerField } from "./divider";
 import { NumberField } from "./number";
-
-const CATEGORIES: Record<Category, string> = {
-  input: "Input Fields",
-  layout: "Layout Fields",
-} as const;
+import { TextField } from "./text";
 
 const FIELDS = {
   text: TextField,
@@ -21,6 +17,11 @@ const FIELDS = {
   heading: HeadingField,
   divider: DividerField,
 } as const satisfies Record<FieldType, FieldPlugin>;
+
+type CategorizedField = {
+  label: string;
+  fields: FieldPlugin[];
+};
 
 export const fieldRegistry = {
   categorizedFields: null as CategorizedField[] | null,
@@ -48,20 +49,11 @@ export const fieldRegistry = {
   },
 };
 
-/**
- *  ************************ TYPES ***********************
- */
-
-type CategorizedField = {
-  label: string;
-  fields: FieldPlugin[];
-};
-
 export interface FieldPlugin {
   type: FieldType;
   label: string;
   category: Category;
-  // defaultValues: FormSchemaField;
+  getDefaultValues: () => FormSchemaField;
 
   Icon: LucideIcon;
   Form?: React.ComponentType<FormProps>;
