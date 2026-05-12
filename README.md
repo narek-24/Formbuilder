@@ -2,11 +2,6 @@
 
 ### Builder and renderer
 
-- Field item content. (Edit / Conditional)
-- Design field-item and add actions. (Move up/down, add below, edit, conditional)
+- Field item content. (Edit / Conditional / Builder)
 - Form title and settings
 - Renderer/preview with validation
-
-## Random
-
-- Don't need to await params and searchParams in page,

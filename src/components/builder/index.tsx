@@ -4,6 +4,16 @@ import { type FieldType, type FormSchemaField } from "./schemas/form-schemas";
 import { useBuilderStore } from "./store";
 import { fieldRegistry } from "./fields/registry";
 import { Button } from "../ui/button";
+import { useState } from "react";
+import {
+  ArrowDown,
+  ArrowUp,
+  GitBranch,
+  Pencil,
+  Plus,
+  Trash,
+  X,
+} from "lucide-react";
 
 export default function Builder() {
   return (
@@ -59,48 +69,106 @@ function FieldsList() {
   const fields = useBuilderStore((state) => state.fields);
 
   return (
-    <div className="mx-auto space-y-6 md:w-2xl">
-      {fields.map((field, i) => (
-        <FieldItem key={field.id} field={field} index={i} />
+    <div className="mx-auto space-y-8 md:w-2xl">
+      {fields.map((field) => (
+        <FieldItem key={field.id} field={field} />
       ))}
     </div>
   );
 }
 
-// type FieldItemState = "default" | "editing" | "conditional";
+type FieldItemState = "default" | "editing" | "conditional";
 
-function FieldItem({
-  field,
-  index,
-}: {
-  index: number;
-  field: FormSchemaField;
-}) {
-  // const [fieldItemState, setFieldItemState] = useState<FieldItemState>(
-  //   field.isSaved ? "default" : "editing"
-  // );
+function FieldItem({ field }: { field: FormSchemaField }) {
+  const [fieldItemState, setFieldState] = useState<FieldItemState>(
+    field.isSaved ? "default" : "editing"
+  );
 
   const Icon = fieldRegistry.get(field.type).Icon;
   const removeField = useBuilderStore((state) => state.removeField);
+  const moveField = useBuilderStore((state) => state.moveField);
+
+  function toggleEditing() {
+    setFieldState(fieldItemState === "editing" ? "default" : "editing");
+  }
+
+  function toggleConditional() {
+    setFieldState(fieldItemState === "conditional" ? "default" : "conditional");
+  }
 
   return (
-    <div className="card relative p-6">
+    <div className="card relative space-y-6 p-3 md:px-4">
       {/* HEADER */}
-      <div className="flex justify-between">
-        <div>
-          <div className="inline-flex size-8 shrink-0 items-center justify-center rounded bg-muted">
-            <Icon className="size-5 text-primary-text" />
-          </div>
-
-          <h3>{field.category === "input" ? field.label : field.type}</h3>
-
-          {index}
+      <div className="flex items-center gap-1">
+        {/* MOVE BUTTONS */}
+        <div className="mr-1 flex flex-col [&>button]:text-muted-foreground">
+          <Button
+            size="icon-xs"
+            variant="ghost"
+            className="transition-none hover:bg-transparent hover:text-foreground"
+            onClick={() => moveField(field.id, "up")}
+          >
+            <ArrowUp className="size-4" />
+          </Button>
+          <Button
+            size="icon-xs"
+            variant="ghost"
+            className="transition-none hover:bg-transparent hover:text-foreground"
+            onClick={() => moveField(field.id, "down")}
+          >
+            <ArrowDown className="size-4" />
+          </Button>
         </div>
 
-        <Button variant="ghost" onClick={() => removeField(field.id)}>
-          Delete
-        </Button>
+        {/* INFO */}
+        <div className="flex items-center gap-1.5">
+          <div className="inline-flex size-8 shrink-0 items-center justify-center rounded bg-muted max-sm:hidden">
+            <Icon className="size-5 text-primary-text" />
+          </div>
+          <h3 className="line-clamp-2 text-sm capitalize md:text-[15px] md:font-medium">
+            {fieldItemLabel(field)}
+          </h3>
+        </div>
+
+        {/* ACTIONS */}
+        <div className="ml-auto flex gap-0.25 [&>button]:text-muted-foreground">
+          <Button size="icon-sm" variant="ghost">
+            <span className="sr-only">Add field below</span>
+            <Plus />
+          </Button>
+          <Button size="icon-sm" variant="ghost" onClick={toggleConditional}>
+            <span className="sr-only">Conditional logic</span>
+            {fieldItemState === "conditional" ? <X /> : <GitBranch />}
+          </Button>
+          <Button size="icon-sm" variant="ghost" onClick={toggleEditing}>
+            <span className="sr-only">Edit field</span>
+            {fieldItemState === "editing" ? <X /> : <Pencil />}
+          </Button>
+          <Button
+            size="icon-sm"
+            variant="ghost"
+            onClick={() => removeField(field.id)}
+          >
+            <span className="sr-only">Remove field</span>
+            <Trash />
+          </Button>
+        </div>
+      </div>
+
+      {/* CONTENT */}
+      <div className="px-1.5">
+        {fieldItemState === "default"
+          ? "Builder"
+          : fieldItemState === "editing"
+            ? "Editing"
+            : "Conditional"}
       </div>
     </div>
   );
+}
+
+function fieldItemLabel(field: FormSchemaField) {
+  if (field.category === "input") return field.label;
+  if (field.type === "heading") return field.text;
+  return field.type;
 }

@@ -6,7 +6,7 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  --background: hsl(0, 0%, 100%);
+  --background: hsl(240, 15%, 99%);
   --foreground: hsl(0, 0%, 4%);
 
   --card: hsl(0, 0%, 100%);
@@ -20,7 +20,7 @@
 
   --muted: hsla(240, 30%, 20%, 5%);
   --muted-hover: hsla(240, 30%, 20%, 10%);
-  --muted-foreground: hsl(0, 0%, 45%);
+  --muted-foreground: hsl(0, 0%, 40%);
 
   --danger: hsl(350, 70%, 45%);
   --danger-text: hsl(350, 80%, 37%);
@@ -31,10 +31,10 @@
 }
 
 .dark {
-  --background: hsl(0, 0%, 4%);
+  --background: hsl(0, 0%, 5%);
   --foreground: hsl(0, 0%, 98%);
 
-  --card: hsl(0, 0%, 4%);
+  --card: hsl(0, 0%, 6%);
   --input: hsl(0, 0%, 11%);
   --popover: hsl(0, 0%, 9%);
 
@@ -45,14 +45,14 @@
 
   --muted: hsla(0, 0%, 100%, 8%);
   --muted-hover: hsl(0, 0%, 100%, 14%);
-  --muted-foreground: hsl(0, 0%, 63%);
+  --muted-foreground: hsl(0, 0%, 55%);
 
   --danger: hsl(359, 80%, 62%);
   --danger-text: hsl(359, 100%, 70%);
   --danger-hover: hsl(359, 80%, 57%);
   --danger-foreground: hsl(0, 0%, 100%);
 
-  --border: hsla(0, 0%, 100%, 7%);
+  --border: hsla(0, 0%, 100%, 5%);
 }
 
 @theme inline {
