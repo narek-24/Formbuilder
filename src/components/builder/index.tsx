@@ -1,7 +1,7 @@
 "use client";
 
 import { type FieldType, type FormSchemaField } from "./schemas/form-schemas";
-import { useBuilderStore } from "./store";
+import { useBuilderStore } from "./hooks/use-builder-store";
 import { fieldRegistry } from "./fields/registry";
 import { Button } from "../ui/button";
 import { useState } from "react";
@@ -84,10 +84,6 @@ function FieldItem({ field }: { field: FormSchemaField }) {
     field.isSaved ? "default" : "editing"
   );
 
-  const Icon = fieldRegistry.get(field.type).Icon;
-  const Form = fieldRegistry.get(field.type).Form;
-  // const Builder = fieldRegistry.get(field.type).Builder;
-
   const removeField = useBuilderStore((state) => state.removeField);
   const moveField = useBuilderStore((state) => state.moveField);
 
@@ -99,8 +95,10 @@ function FieldItem({ field }: { field: FormSchemaField }) {
     setFieldState(fieldItemState === "conditional" ? "default" : "conditional");
   }
 
+  const Icon = fieldRegistry.get(field.type).Icon;
+
   return (
-    <div className="card relative space-y-3 p-3 md:px-4">
+    <div className="card relative p-3 md:px-4">
       {/* HEADER */}
       <div className="flex items-center gap-1">
         {/* MOVE BUTTONS */}
@@ -124,7 +122,7 @@ function FieldItem({ field }: { field: FormSchemaField }) {
         </div>
 
         {/* INFO */}
-        <div className="flex items-center gap-1.5">
+        <div className="flex items-center gap-2">
           <div className="inline-flex size-8 shrink-0 items-center justify-center rounded bg-muted max-sm:hidden">
             <Icon className="size-5 text-primary-text" />
           </div>
@@ -159,15 +157,38 @@ function FieldItem({ field }: { field: FormSchemaField }) {
       </div>
 
       {/* CONTENT */}
-      <div className="px-1.5">
-        {fieldItemState === "default" ? (
-          "Builder"
-        ) : fieldItemState === "editing" ? (
-          <Form field={field} />
-        ) : (
-          "Conditional"
-        )}
+      <Content field={field} state={fieldItemState} />
+    </div>
+  );
+}
+
+function Content({
+  field,
+  state,
+}: {
+  field: FormSchemaField;
+  state: FieldItemState;
+}) {
+  if (state === "conditional") {
+    return <div>TODO: Conditional</div>;
+  }
+
+  if (state === "editing") {
+    const Comp = fieldRegistry.get(field.type).Form;
+
+    return (
+      <div className="mt-4 px-1.5 pb-2">
+        <Comp field={field} />
       </div>
+    );
+  }
+
+  const Comp = fieldRegistry.get(field.type).Builder;
+  if (!Comp) return null;
+
+  return (
+    <div className="mt-4 px-1.5 pb-2">
+      <Comp field={field} />
     </div>
   );
 }

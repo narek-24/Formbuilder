@@ -2,7 +2,7 @@
 
 ### Builder and renderer
 
-- Field item content. (Conditional / Builder)
+- Redesign
+- Field item content. (Conditional)
 - Form title and settings
 - Renderer/preview with validation
-- Redesign

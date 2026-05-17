@@ -1,6 +1,6 @@
 "use client";
 
-import { type FormSchema, type FormSchemaField } from "./schemas/form-schemas";
+import { type FormSchema, type FormSchemaField } from "../schemas/form-schemas";
 import { persist } from "zustand/middleware";
 import { create } from "zustand";
 

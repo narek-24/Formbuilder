@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
-import { useBuilderStore } from "./store";
-import type { FormSchemaField } from "./schemas/form-schemas";
+import { useBuilderStore } from "./use-builder-store";
+import type { FormSchemaField } from "../schemas/form-schemas";
 
 export function useFieldsForm<T>(field: FormSchemaField, setSaved: () => void) {
   const firstInputRef = useRef<HTMLInputElement>(null);

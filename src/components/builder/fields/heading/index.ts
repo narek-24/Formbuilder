@@ -19,6 +19,6 @@ export const HeadingField: FieldPlugin = {
 
   Icon: Heading2,
   Form: HeadingFieldForm,
-  // Builder: ,
+  Builder: null,
   // Renderer: ,
 };

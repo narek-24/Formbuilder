@@ -2,6 +2,7 @@ import { getBaseInputValues } from "../defaults";
 import { type FieldPlugin } from "../registry";
 import { List } from "lucide-react";
 import OptionsFieldForm from "./form";
+import BuilderOptionsField from "./builder";
 
 export const OptionsField: FieldPlugin = {
   type: "options",
@@ -23,6 +24,6 @@ export const OptionsField: FieldPlugin = {
 
   Icon: List,
   Form: OptionsFieldForm,
-  // Builder: ,
+  Builder: BuilderOptionsField,
   // Renderer: ,
 };

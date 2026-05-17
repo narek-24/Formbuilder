@@ -18,6 +18,6 @@ export const DividerField: FieldPlugin = {
 
   Icon: Divide,
   Form: DividerFieldForm,
-  // Builder: ,
+  Builder: null,
   // Renderer: ,
 };

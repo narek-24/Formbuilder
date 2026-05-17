@@ -7,7 +7,7 @@ import { type FormProps } from "../registry";
 import { type z } from "zod";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
-import { useFieldsForm } from "../../use-fields-form";
+import { useFieldsForm } from "../../hooks/use-fields-form";
 import {
   Field,
   FieldContent,

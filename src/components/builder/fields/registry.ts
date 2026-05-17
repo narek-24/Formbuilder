@@ -57,7 +57,7 @@ export interface FieldPlugin {
 
   Icon: LucideIcon;
   Form: React.ComponentType<FormProps>;
-  Builder?: React.ComponentType<BuilderProps>;
+  Builder: React.ComponentType<BuilderProps> | null;
   Renderer?: React.ComponentType<RendererProps>;
 }
 

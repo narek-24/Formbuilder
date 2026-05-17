@@ -3,7 +3,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
 import { type FormProps } from "../registry";
 import { type z } from "zod";
-import { useFieldsForm } from "../../use-fields-form";
+import { useFieldsForm } from "../../hooks/use-fields-form";
 import {
   Field,
   FieldError,
