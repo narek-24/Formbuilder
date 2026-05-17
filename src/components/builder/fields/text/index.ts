@@ -1,6 +1,7 @@
 import { getBaseInputValues } from "../defaults";
 import { type FieldPlugin } from "../registry";
 import { Type } from "lucide-react";
+import TextFieldForm from "./form";
 
 export const TextField: FieldPlugin = {
   type: "text",
@@ -13,12 +14,12 @@ export const TextField: FieldPlugin = {
       type: "text",
       longAnswer: false,
       placeholder: "",
+      description: "",
     };
   },
 
   Icon: Type,
-
-  // Form: ,
+  Form: TextFieldForm,
   // Builder: ,
   // Renderer: ,
 };

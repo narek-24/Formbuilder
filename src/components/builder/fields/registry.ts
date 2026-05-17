@@ -56,7 +56,7 @@ export interface FieldPlugin {
   getDefaultValues: () => FormSchemaField;
 
   Icon: LucideIcon;
-  Form?: React.ComponentType<FormProps>;
+  Form: React.ComponentType<FormProps>;
   Builder?: React.ComponentType<BuilderProps>;
   Renderer?: React.ComponentType<RendererProps>;
 }

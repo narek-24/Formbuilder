@@ -1,6 +1,7 @@
 import { getBaseInputValues } from "../defaults";
 import { type FieldPlugin } from "../registry";
 import { Sigma } from "lucide-react";
+import NumberFieldForm from "./form";
 
 export const NumberField: FieldPlugin = {
   type: "number",
@@ -17,8 +18,7 @@ export const NumberField: FieldPlugin = {
   },
 
   Icon: Sigma,
-
-  // Form: ,
+  Form: NumberFieldForm,
   // Builder: ,
   // Renderer: ,
 };

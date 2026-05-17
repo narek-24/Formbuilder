@@ -85,6 +85,9 @@ function FieldItem({ field }: { field: FormSchemaField }) {
   );
 
   const Icon = fieldRegistry.get(field.type).Icon;
+  const Form = fieldRegistry.get(field.type).Form;
+  // const Builder = fieldRegistry.get(field.type).Builder;
+
   const removeField = useBuilderStore((state) => state.removeField);
   const moveField = useBuilderStore((state) => state.moveField);
 
@@ -97,7 +100,7 @@ function FieldItem({ field }: { field: FormSchemaField }) {
   }
 
   return (
-    <div className="card relative space-y-6 p-3 md:px-4">
+    <div className="card relative space-y-3 p-3 md:px-4">
       {/* HEADER */}
       <div className="flex items-center gap-1">
         {/* MOVE BUTTONS */}
@@ -157,18 +160,20 @@ function FieldItem({ field }: { field: FormSchemaField }) {
 
       {/* CONTENT */}
       <div className="px-1.5">
-        {fieldItemState === "default"
-          ? "Builder"
-          : fieldItemState === "editing"
-            ? "Editing"
-            : "Conditional"}
+        {fieldItemState === "default" ? (
+          "Builder"
+        ) : fieldItemState === "editing" ? (
+          <Form field={field} />
+        ) : (
+          "Conditional"
+        )}
       </div>
     </div>
   );
 }
 
 function fieldItemLabel(field: FormSchemaField) {
-  if (field.category === "input") return field.label;
-  if (field.type === "heading") return field.text;
+  if (field.category === "input") return field.label || "Untitled field";
+  if (field.type === "heading") return field.text || "Untitled heading";
   return field.type;
 }

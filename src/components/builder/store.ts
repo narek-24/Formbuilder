@@ -8,6 +8,7 @@ interface Store {
   fields: FormSchema;
   addField: (field: FormSchemaField, index?: number) => void;
   setFields: (fields: FormSchema) => void;
+  editField: (field: FormSchemaField) => void;
   removeField: (id: string) => void;
   moveField: (id: string, dir: "up" | "down") => void;
 }
@@ -25,17 +26,24 @@ export const useBuilderStore = create(
         set((state) => {
           if (typeof index === "number") {
             return {
-              fields: state.fields.toSpliced(index, 0, field),
-              // .filter((f) => f.isSaved || f.id === field.id),
+              fields: state.fields
+                .toSpliced(index, 0, field)
+                .filter((f) => f.isSaved || f.id === field.id),
             };
           } else {
             return {
               fields: state.fields
-                // .filter((f) => f.isSaved || f.id === field.id)
+                .filter((f) => f.isSaved || f.id === field.id)
                 .concat(field),
             };
           }
         });
+      },
+
+      editField: (field) => {
+        set((state) => ({
+          fields: state.fields.map((f) => (f.id !== field.id ? f : field)),
+        }));
       },
 
       removeField: (id) => {

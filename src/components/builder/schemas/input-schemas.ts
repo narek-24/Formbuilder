@@ -15,11 +15,13 @@ export const textFieldSchema = baseInputFieldSchema.extend({
   placeholder: z.string(),
 });
 
-const option = z.object({ value: z.string().min(1, { error: "Required" }) });
+const option = z.object({
+  value: z.string().trim().min(1, { error: "Required" }),
+});
 
 export const optionsFieldSchema = baseInputFieldSchema.extend({
   type: z.literal("options"),
-  multipleAnswers: z.boolean().default(false),
+  multipleAnswers: z.boolean(),
   options: z.array(option).min(1),
 });
 
