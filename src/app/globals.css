@@ -6,11 +6,11 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  --background: hsl(240, 25%, 99%);
+  --background: hsl(240, 25%, 98%);
   --foreground: hsl(0, 0%, 4%);
 
-  --card: hsl(0, 0%, 100%);
-  --input: hsl(240, 10%, 99%);
+  --card: hsl(0, 0%, 99%);
+  --input: hsl(240, 15%, 99%);
   --popover: hsl(0, 0%, 100%);
 
   --primary: hsl(335, 33%, 36%);
@@ -27,7 +27,7 @@
   --danger-hover: hsl(350, 70%, 55%);
   --danger-foreground: hsl(0, 0%, 100%);
 
-  --border: hsl(0, 0%, 0%, 5%);
+  --border: hsl(0, 0%, 0%, 6%);
 }
 
 .dark {

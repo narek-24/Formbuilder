@@ -2,6 +2,9 @@
 
 import type { FormSchema } from "../schemas/form-schemas";
 import { fieldRegistry } from "../fields/registry";
+import { createValidationSchema } from "./create-validation";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useMemo } from "react";
 import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 
@@ -12,14 +15,14 @@ export default function FormRenderer({
   fields: FormSchema;
   onSubmit: (data: unknown) => void;
 }) {
-  //  const { schema, defaultValues } = useMemo(
-  //     () => createValidationSchema(fields),
-  //     []
-  //   );
+  const { schema, defaultValues } = useMemo(
+    () => createValidationSchema(fields),
+    [fields]
+  );
 
   const form = useForm({
-    // resolver: zodResolver(schema)
-    // defaultValues,
+    resolver: zodResolver(schema),
+    defaultValues,
   });
 
   return (
