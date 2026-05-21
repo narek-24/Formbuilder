@@ -9,7 +9,8 @@ const buttonVariants = cva(
       variant: {
         default:
           "bg-primary text-primary-foreground outline-offset-4 hover:bg-primary-hover",
-        secondary: "bg-muted hover:bg-muted-hover aria-expanded:bg-muted-hover",
+        secondary:
+          "border-2 bg-muted hover:bg-muted-hover aria-expanded:bg-muted-hover",
         ghost: "hover:bg-muted-hover aria-expanded:bg-muted",
         danger:
           "bg-danger text-danger-foreground outline-offset-4 hover:bg-danger-hover",
@@ -19,7 +20,7 @@ const buttonVariants = cva(
         default: "h-8.5 gap-1.5 px-4 has-[>svg]:px-3",
         icon: "size-8.5",
         "icon-sm": "size-7 rounded-md",
-        "icon-xs": "size-6 rounded-md",
+        "icon-xs": "size-6.5 rounded-md",
       },
     },
     defaultVariants: {

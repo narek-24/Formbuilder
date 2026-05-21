@@ -19,7 +19,7 @@ const numberFormSchema = numberFieldSchema.omit({
 
 type NumberFormSchemaType = z.infer<typeof numberFormSchema>;
 
-export default function NumberFieldForm({ field }: FormProps) {
+export default function NumberFieldForm({ field, setToDefault }: FormProps) {
   if (field.type !== "number")
     throw Error("Need to pass in a number field to number form");
 
@@ -37,7 +37,7 @@ export default function NumberFieldForm({ field }: FormProps) {
 
   const { onSubmit, firstInputRef } = useFieldsForm<NumberFormSchemaType>(
     field,
-    () => {}
+    setToDefault
   );
 
   return (

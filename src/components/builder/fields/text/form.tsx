@@ -19,7 +19,7 @@ const textFormSchema = textFieldSchema.omit({
 
 type TextFormSchemaType = z.infer<typeof textFormSchema>;
 
-export default function TextFieldForm({ field }: FormProps) {
+export default function TextFieldForm({ field, setToDefault }: FormProps) {
   if (field.type !== "text")
     throw Error("Need to pass in a text field to text form");
 
@@ -36,7 +36,7 @@ export default function TextFieldForm({ field }: FormProps) {
 
   const { onSubmit, firstInputRef } = useFieldsForm<TextFormSchemaType>(
     field,
-    () => {}
+    setToDefault
   );
 
   return (

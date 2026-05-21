@@ -6,11 +6,11 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  --background: hsl(240, 15%, 99%);
+  --background: hsl(240, 25%, 99%);
   --foreground: hsl(0, 0%, 4%);
 
   --card: hsl(0, 0%, 100%);
-  --input: hsl(0, 0%, 98%);
+  --input: hsl(240, 10%, 99%);
   --popover: hsl(0, 0%, 100%);
 
   --primary: hsl(335, 33%, 36%);
@@ -31,28 +31,28 @@
 }
 
 .dark {
-  --background: hsl(0, 0%, 5%);
+  --background: hsl(240, 6%, 6%);
   --foreground: hsl(0, 0%, 98%);
 
-  --card: hsl(0, 0%, 6%);
-  --input: hsl(0, 0%, 11%);
-  --popover: hsl(0, 0%, 9%);
+  --card: hsl(240, 6%, 7%);
+  --input: hsl(240, 6%, 11%);
+  --popover: hsl(240, 6%, 8%);
 
   --primary: hsl(335, 33%, 38%);
   --primary-text: hsl(335, 40%, 60%);
   --primary-hover: hsl(335, 33%, 44%);
   --primary-foreground: hsl(0, 0%, 100%);
 
-  --muted: hsla(0, 0%, 100%, 8%);
-  --muted-hover: hsl(0, 0%, 100%, 14%);
-  --muted-foreground: hsl(0, 0%, 55%);
+  --muted: hsla(240, 12%, 70%, 10%);
+  --muted-hover: hsl(240, 12%, 70%, 15%);
+  --muted-foreground: hsl(240, 7%, 55%);
 
   --danger: hsl(359, 80%, 62%);
   --danger-text: hsl(359, 100%, 70%);
   --danger-hover: hsl(359, 80%, 57%);
   --danger-foreground: hsl(0, 0%, 100%);
 
-  --border: hsla(0, 0%, 100%, 5%);
+  --border: hsla(0, 0%, 100%, 4%);
 }
 
 @theme inline {
@@ -117,6 +117,6 @@
 
 @layer components {
   .card {
-    @apply rounded-xl border-2 bg-card;
+    @apply rounded-xl border-2 bg-card shadow-md/3 dark:shadow-md/40;
   }
 }

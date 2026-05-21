@@ -63,6 +63,7 @@ export interface FieldPlugin {
 
 export type FormProps = {
   field: FormSchemaField;
+  setToDefault: () => void;
 };
 
 export type BuilderProps = {

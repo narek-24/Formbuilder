@@ -27,7 +27,7 @@ const headingFormSchema = headingFieldSchema.omit({
 
 type HeadingFormSchemaType = z.infer<typeof headingFormSchema>;
 
-export default function HeadingFieldForm({ field }: FormProps) {
+export default function HeadingFieldForm({ field, setToDefault }: FormProps) {
   if (field.type !== "heading")
     throw Error("Need to pass in a heading field to heading form");
 
@@ -41,7 +41,7 @@ export default function HeadingFieldForm({ field }: FormProps) {
 
   const { onSubmit, firstInputRef } = useFieldsForm<HeadingFormSchemaType>(
     field,
-    () => {}
+    setToDefault
   );
 
   return (

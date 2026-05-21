@@ -28,7 +28,7 @@ const optionsFormSchema = optionsFieldSchema.omit({
 
 type OptionsFormSchemaType = z.infer<typeof optionsFormSchema>;
 
-export default function OptionsFieldForm({ field }: FormProps) {
+export default function OptionsFieldForm({ field, setToDefault }: FormProps) {
   if (field.type !== "options")
     throw Error("Need to pass in a options field to options form");
 
@@ -45,7 +45,7 @@ export default function OptionsFieldForm({ field }: FormProps) {
 
   const { onSubmit, firstInputRef } = useFieldsForm<OptionsFormSchemaType>(
     field,
-    () => {}
+    setToDefault
   );
 
   const {

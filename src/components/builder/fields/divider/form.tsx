@@ -26,7 +26,7 @@ const dividerFormSchema = dividerFieldSchema.omit({
 
 type DividerFormSchemaType = z.infer<typeof dividerFormSchema>;
 
-export default function DividerFieldForm({ field }: FormProps) {
+export default function DividerFieldForm({ field, setToDefault }: FormProps) {
   if (field.type !== "divider")
     throw Error("Need to pass in a divider field to divider form");
 
@@ -37,7 +37,10 @@ export default function DividerFieldForm({ field }: FormProps) {
     },
   });
 
-  const { onSubmit } = useFieldsForm<DividerFormSchemaType>(field, () => {});
+  const { onSubmit } = useFieldsForm<DividerFormSchemaType>(
+    field,
+    setToDefault
+  );
 
   return (
     <form
