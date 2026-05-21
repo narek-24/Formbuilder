@@ -3,6 +3,7 @@ import { type FieldPlugin } from "../registry";
 import { Type } from "lucide-react";
 import TextFieldForm from "./form";
 import BuilderTextField from "./builder";
+import TextFieldRenderer from "./renderer";
 
 export const TextField: FieldPlugin = {
   type: "text",
@@ -22,5 +23,5 @@ export const TextField: FieldPlugin = {
   Icon: Type,
   Form: TextFieldForm,
   Builder: BuilderTextField,
-  // Renderer: ,
+  Renderer: TextFieldRenderer,
 };

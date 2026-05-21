@@ -40,7 +40,6 @@ export default function FieldItem({ field }: { field: FormSchemaField }) {
 
   return (
     <div className="card relative px-3 pt-2 pb-3 md:px-4">
-      {/* HEADER */}
       <div className="flex items-center gap-1">
         {/* MOVE BUTTONS */}
         <div className="mr-1 flex flex-col [&>button]:text-muted-foreground">
@@ -105,7 +104,7 @@ export default function FieldItem({ field }: { field: FormSchemaField }) {
           </Button>
         </div>
       </div>
-      {/* CONTENT */}
+
       <Content
         field={field}
         state={fieldItemState}

@@ -2,6 +2,7 @@ import { getBaseLayoutValues } from "../defaults";
 import { type FieldPlugin } from "../registry";
 import { Heading2 } from "lucide-react";
 import HeadingFieldForm from "./form";
+import HeadingFieldRenderer from "./renderer";
 
 export const HeadingField: FieldPlugin = {
   type: "heading",
@@ -20,5 +21,5 @@ export const HeadingField: FieldPlugin = {
   Icon: Heading2,
   Form: HeadingFieldForm,
   Builder: null,
-  // Renderer: ,
+  Renderer: HeadingFieldRenderer,
 };

@@ -3,6 +3,7 @@ import { type FieldPlugin } from "../registry";
 import { Sigma } from "lucide-react";
 import NumberFieldForm from "./form";
 import BuilderNumberField from "./builder";
+import NumberFieldRenderer from "./renderer";
 
 export const NumberField: FieldPlugin = {
   type: "number",
@@ -21,5 +22,5 @@ export const NumberField: FieldPlugin = {
   Icon: Sigma,
   Form: NumberFieldForm,
   Builder: BuilderNumberField,
-  // Renderer: ,
+  Renderer: NumberFieldRenderer,
 };

@@ -3,6 +3,7 @@ import { type FieldPlugin } from "../registry";
 import { List } from "lucide-react";
 import OptionsFieldForm from "./form";
 import BuilderOptionsField from "./builder";
+import OptionsFieldRenderer from "./renderer";
 
 export const OptionsField: FieldPlugin = {
   type: "options",
@@ -25,5 +26,5 @@ export const OptionsField: FieldPlugin = {
   Icon: List,
   Form: OptionsFieldForm,
   Builder: BuilderOptionsField,
-  // Renderer: ,
+  Renderer: OptionsFieldRenderer,
 };

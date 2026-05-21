@@ -4,7 +4,15 @@ import { type FormSchema, type FormSchemaField } from "../schemas/form-schemas";
 import { persist } from "zustand/middleware";
 import { create } from "zustand";
 
+interface Settings {
+  title: string;
+  description: string;
+}
+
 interface Store {
+  settings: Settings;
+  setTitle: (title: string) => void;
+
   fields: FormSchema;
   addField: (field: FormSchemaField, index?: number) => void;
   setFields: (fields: FormSchema) => void;
@@ -16,6 +24,11 @@ interface Store {
 export const useBuilderStore = create(
   persist<Store>(
     (set) => ({
+      settings: { title: "", description: "" },
+      setTitle: (title) => {
+        set((state) => ({ settings: { ...state.settings, title } }));
+      },
+
       fields: [],
 
       setFields: (fields) => {

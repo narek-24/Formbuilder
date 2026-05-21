@@ -117,6 +117,6 @@
 
 @layer components {
   .card {
-    @apply rounded-xl border-2 bg-card shadow-md/3 dark:shadow-md/40;
+    @apply rounded-xl border bg-card shadow-md/4 dark:border-2 dark:shadow-md/40;
   }
 }

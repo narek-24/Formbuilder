@@ -2,6 +2,7 @@ import { getBaseLayoutValues } from "../defaults";
 import { type FieldPlugin } from "../registry";
 import { Divide } from "lucide-react";
 import DividerFieldForm from "./form";
+import DividerFieldRenderer from "./renderer";
 
 export const DividerField: FieldPlugin = {
   type: "divider",
@@ -19,5 +20,5 @@ export const DividerField: FieldPlugin = {
   Icon: Divide,
   Form: DividerFieldForm,
   Builder: null,
-  // Renderer: ,
+  Renderer: DividerFieldRenderer,
 };

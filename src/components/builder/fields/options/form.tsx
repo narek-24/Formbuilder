@@ -206,7 +206,12 @@ export default function OptionsFieldForm({ field, setToDefault }: FormProps) {
           Save
         </Button>
         {field.isSaved && (
-          <Button type="button" className="w-fit" variant="secondary">
+          <Button
+            type="button"
+            className="w-fit"
+            variant="secondary"
+            onClick={setToDefault}
+          >
             Cancel
           </Button>
         )}
