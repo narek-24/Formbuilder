@@ -32,7 +32,7 @@ export const numberFieldSchema = baseInputFieldSchema.extend({
 });
 
 // **** TYPE GUARD HELPERS ****
-type InputField = Extract<FormSchemaField, { category: "input" }>;
+export type InputField = Extract<FormSchemaField, { category: "input" }>;
 
 export function isInputField(field: FormSchemaField): field is InputField {
   return field.category === "input";

@@ -12,6 +12,7 @@ import {
   Trash,
   X,
 } from "lucide-react";
+import { ConditionalForm } from "./conditional-form";
 
 type FieldItemState = "default" | "editing" | "conditional";
 
@@ -104,7 +105,6 @@ export default function FieldItem({ field }: { field: FormSchemaField }) {
           </Button>
         </div>
       </div>
-
       {/* CONTENT */}
       <Content
         field={field}
@@ -125,7 +125,11 @@ function Content({
   setToDefault: () => void;
 }) {
   if (state === "conditional") {
-    return <div>TODO: Conditional</div>;
+    return (
+      <div className="mt-4 px-1.5 pb-2">
+        <ConditionalForm field={field} onClose={setToDefault} />
+      </div>
+    );
   }
 
   if (state === "editing") {
