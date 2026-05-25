@@ -13,7 +13,7 @@ export const DividerField: FieldPlugin = {
     return {
       ...getBaseLayoutValues(),
       type: "divider",
-      space: "2",
+      space: "1",
     };
   },
 

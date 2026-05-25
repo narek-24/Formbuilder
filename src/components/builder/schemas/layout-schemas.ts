@@ -6,7 +6,6 @@ export const SPACING_LEVELS = ["1", "2", "3"] as const;
 export const headingFieldSchema = baseFieldSchema.extend({
   type: z.literal("heading"),
   text: z.string().min(1, { error: "Text is required" }),
-  space: z.enum(SPACING_LEVELS),
   category: z.literal("layout"),
 });
 

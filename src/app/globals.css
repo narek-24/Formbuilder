@@ -6,28 +6,30 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  --background: hsl(240, 25%, 98%);
+  --background: hsl(0, 0%, 99%);
   --foreground: hsl(0, 0%, 4%);
 
-  --card: hsl(0, 0%, 99%);
-  --input: hsl(240, 15%, 99%);
+  --card: hsl(0, 0%, 100%);
   --popover: hsl(0, 0%, 100%);
 
-  --primary: hsl(335, 33%, 36%);
+  --input: hsl(0, 0%, 100%);
+  --input-border: hsl(0, 0%, 93%);
+
+  --primary: hsl(0, 0%, 16%);
   --primary-text: hsl(335, 43%, 26%);
-  --primary-hover: hsl(335, 33%, 30%);
+  --primary-hover: hsl(0, 0%, 25%);
   --primary-foreground: hsl(0, 0%, 100%);
 
-  --muted: hsla(240, 30%, 20%, 5%);
-  --muted-hover: hsla(240, 30%, 20%, 10%);
+  --muted: hsla(240, 30%, 20%, 4%);
+  --muted-hover: hsla(240, 30%, 20%, 8%);
   --muted-foreground: hsl(0, 0%, 40%);
 
   --danger: hsl(350, 70%, 45%);
-  --danger-text: hsl(350, 80%, 37%);
+  --danger-text: hsl(350, 75%, 25%);
   --danger-hover: hsl(350, 70%, 55%);
   --danger-foreground: hsl(0, 0%, 100%);
 
-  --border: hsl(0, 0%, 0%, 6%);
+  --border: hsl(0, 0%, 0%, 4%);
 }
 
 .dark {
@@ -35,20 +37,22 @@
   --foreground: hsl(0, 0%, 98%);
 
   --card: hsl(240, 6%, 7%);
-  --input: hsl(240, 6%, 11%);
   --popover: hsl(240, 6%, 9%);
 
-  --primary: hsl(335, 33%, 38%);
+  --input: hsl(240, 6%, 10%);
+  --input-border: hsl(240, 6%, 15%);
+
+  --primary: hsl(0, 0%, 99%);
   --primary-text: hsl(335, 40%, 60%);
-  --primary-hover: hsl(335, 33%, 44%);
-  --primary-foreground: hsl(0, 0%, 100%);
+  --primary-hover: hsl(0, 0%, 85%);
+  --primary-foreground: hsl(0, 0%, 10%);
 
   --muted: hsla(240, 12%, 70%, 10%);
   --muted-hover: hsl(240, 12%, 70%, 15%);
   --muted-foreground: hsl(240, 7%, 55%);
 
   --danger: hsl(359, 80%, 62%);
-  --danger-text: hsl(359, 100%, 70%);
+  --danger-text: hsl(359, 90%, 70%);
   --danger-hover: hsl(359, 80%, 57%);
   --danger-foreground: hsl(0, 0%, 100%);
 
@@ -76,8 +80,10 @@
   --color-primary: var(--primary);
 
   --color-popover: var(--popover);
-  --color-input: var(--input);
   --color-card: var(--card);
+
+  --color-input: var(--input);
+  --color-input-border: var(--input-border);
 
   --color-foreground: var(--foreground);
   --color-background: var(--background);
@@ -117,6 +123,6 @@
 
 @layer components {
   .card {
-    @apply rounded-xl border bg-card shadow-md/4 dark:border-2 dark:shadow-md/40;
+    @apply rounded-xl border-2 bg-card;
   }
 }

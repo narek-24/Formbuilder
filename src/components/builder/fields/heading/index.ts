@@ -13,7 +13,7 @@ export const HeadingField: FieldPlugin = {
     return {
       ...getBaseLayoutValues(),
       type: "heading",
-      space: "2",
+      space: "1",
       text: "",
     };
   },

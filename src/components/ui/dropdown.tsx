@@ -40,7 +40,7 @@ function DropdownMenuContent({
         <MenuPrimitive.Popup
           data-slot="dropdown-menu-content"
           className={cn(
-            "z-50 min-w-32 overflow-x-hidden overflow-y-auto rounded-xl border-2 bg-popover p-1 shadow-lg/5 data-closed:animate-out data-closed:fade-out-0 data-closed:zoom-out-95 data-open:animate-in data-open:fade-in-0 data-open:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 dark:shadow-xl/30",
+            "z-50 min-w-32 overflow-x-hidden overflow-y-auto rounded-xl border-2 bg-popover p-1 shadow-xl/4 data-closed:animate-out data-closed:fade-out-0 data-closed:zoom-out-95 data-open:animate-in data-open:fade-in-0 data-open:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 dark:shadow-xl/30",
             className
           )}
           {...props}
@@ -81,7 +81,7 @@ function DropdownMenuItem({
   ...props
 }: MenuPrimitive.Item.Props & {
   inset?: boolean;
-  variant?: "default" | "destructive";
+  variant?: "default" | "danger";
 }) {
   return (
     <MenuPrimitive.Item
@@ -89,7 +89,7 @@ function DropdownMenuItem({
       data-inset={inset}
       data-variant={variant}
       className={cn(
-        "relative flex cursor-pointer items-center gap-2 rounded-lg px-2 py-1.5 text-sm font-normal outline-hidden select-none focus:bg-primary focus:text-primary-foreground data-disabled:pointer-events-none data-disabled:opacity-50 data-inset:pl-8 data-[variant=danger]:focus:bg-danger/10 data-[variant=danger]:focus:text-danger-text [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 [&_svg:not([class*='text-'])]:text-muted-foreground data-[variant=danger]:focus:*:[svg]:text-danger-text!",
+        "relative flex cursor-pointer items-center gap-2 rounded-lg px-2 py-1.5 text-sm font-normal outline-hidden select-none focus:bg-muted-hover data-disabled:pointer-events-none data-disabled:opacity-50 data-inset:pl-8 data-[variant=danger]:text-danger-text data-[variant=danger]:focus:bg-danger/10 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 data-[variant=danger]:focus:*:[svg]:text-danger-text!",
         className
       )}
       {...props}
@@ -114,7 +114,7 @@ function DropdownMenuSubTrigger({
       data-slot="dropdown-menu-sub-trigger"
       data-inset={inset}
       className={cn(
-        "relative flex cursor-pointer items-center gap-2 rounded-lg px-2 py-1.5 text-sm font-semibold outline-hidden select-none focus:bg-primary focus:text-primary-foreground data-disabled:pointer-events-none data-disabled:opacity-50 data-inset:pl-8 data-[variant=danger]:focus:bg-danger/10 data-[variant=danger]:focus:text-danger-text [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 [&_svg:not([class*='text-'])]:text-muted-foreground data-[variant=danger]:focus:*:[svg]:text-danger-text!",
+        "relative flex cursor-pointer items-center gap-2 rounded-lg px-2 py-1.5 text-sm font-semibold outline-hidden select-none focus:bg-muted-hover data-disabled:pointer-events-none data-disabled:opacity-50 data-inset:pl-8 data-[variant=danger]:focus:bg-danger/10 data-[variant=danger]:focus:text-danger-text [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 [&_svg:not([class*='text-'])]:text-muted-foreground data-[variant=danger]:focus:*:[svg]:text-danger-text!",
         className,
         className
       )}
@@ -138,7 +138,7 @@ function DropdownMenuSubContent({
     <DropdownMenuContent
       data-slot="dropdown-menu-sub-content"
       className={cn(
-        "border-popover-border z-50 min-w-32 overflow-hidden rounded border bg-popover p-1 shadow-lg/10 data-closed:animate-out data-closed:fade-out-0 data-closed:zoom-out-95 data-open:animate-in data-open:fade-in-0 data-open:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 dark:shadow-lg/60",
+        "z-50 min-w-32 overflow-hidden rounded border-2 bg-popover p-1 shadow-lg/15 data-closed:animate-out data-closed:fade-out-0 data-closed:zoom-out-95 data-open:animate-in data-open:fade-in-0 data-open:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 dark:shadow-lg/60",
         className
       )}
       align={align}

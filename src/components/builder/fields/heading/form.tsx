@@ -5,18 +5,8 @@ import { type FormProps } from "../registry";
 import { type z } from "zod";
 import { Input } from "@/components/ui/input";
 import { useFieldsForm } from "../../hooks/use-fields-form";
-import {
-  Field,
-  FieldError,
-  FieldLabel,
-  FieldLegend,
-  FieldSet,
-} from "@/components/ui/field";
-import {
-  headingFieldSchema,
-  SPACING_LEVELS,
-} from "../../schemas/layout-schemas";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Field, FieldError, FieldLabel } from "@/components/ui/field";
+import { headingFieldSchema } from "../../schemas/layout-schemas";
 
 const headingFormSchema = headingFieldSchema.omit({
   id: true,
@@ -34,7 +24,6 @@ export default function HeadingFieldForm({ field, setToDefault }: FormProps) {
   const form = useForm({
     resolver: zodResolver(headingFormSchema),
     defaultValues: {
-      space: field.space,
       text: field.text,
     },
   });
@@ -65,42 +54,6 @@ export default function HeadingFieldForm({ field, setToDefault }: FormProps) {
             />
             {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
           </Field>
-        )}
-      />
-
-      <Controller
-        name="space"
-        control={form.control}
-        render={({ field, fieldState }) => (
-          <FieldSet>
-            <FieldLegend variant="label">Spacing</FieldLegend>
-            {/* <FieldDescription></FieldDescription> */}
-            <RadioGroup
-              name={field.name}
-              value={field.value}
-              onValueChange={field.onChange}
-              className="flex gap-8"
-            >
-              {SPACING_LEVELS.map((level) => (
-                <Field key={level} data-invalid={fieldState.invalid}>
-                  <div className="flex items-center">
-                    <RadioGroupItem
-                      value={level}
-                      id={`form-rhf-radiogroup-${level}`}
-                      aria-invalid={fieldState.invalid}
-                    />
-                    <FieldLabel
-                      className="w-fit py-1 pl-3"
-                      htmlFor={`form-rhf-radiogroup-${level}`}
-                    >
-                      {level}
-                    </FieldLabel>
-                  </div>
-                </Field>
-              ))}
-            </RadioGroup>
-            {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
-          </FieldSet>
         )}
       />
 

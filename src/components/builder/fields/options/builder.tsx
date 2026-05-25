@@ -9,7 +9,7 @@ export default function BuilderOptionsField({ field }: BuilderProps) {
   }
 
   return (
-    <div className="space-y-1">
+    <div className="space-y-2">
       <Label>{field.label}</Label>
 
       {field.description && (

@@ -13,14 +13,14 @@ import { useCallback, useState } from "react";
 import { useBuilderStore } from "../hooks/use-builder-store";
 import { type FollowUpProps } from "../schemas/base-schema";
 import { type FormSchemaField } from "../schemas/form-schemas";
-import { isInputField, type InputField } from "../schemas/input-schemas";
+import { type InputField, isInputField } from "../schemas/input-schemas";
 
 export function ConditionalForm({
   field,
-  onClose,
+  setToDefault,
 }: {
   field: FormSchemaField;
-  onClose: () => void;
+  setToDefault: () => void;
 }) {
   const [formState, setFormState] = useState<FollowUpProps>({
     parentId: field.followUps?.parentId ?? "",
@@ -80,8 +80,8 @@ export function ConditionalForm({
     };
 
     editField(updatedField);
-    onClose();
-  }, [field, formState, editField, onClose]);
+    setToDefault();
+  }, [field, formState, editField, setToDefault]);
 
   const handleReset = useCallback(() => {
     const updatedField: FormSchemaField = {
@@ -90,8 +90,8 @@ export function ConditionalForm({
     };
 
     editField(updatedField);
-    onClose();
-  }, [field, editField, onClose]);
+    setToDefault();
+  }, [field, editField, setToDefault]);
 
   return (
     <div className="space-y-4">
@@ -171,7 +171,7 @@ export function ConditionalForm({
         >
           Save
         </Button>
-        <Button variant="secondary" onClick={onClose}>
+        <Button variant="secondary" onClick={setToDefault}>
           Cancel
         </Button>
         {field.followUps && (

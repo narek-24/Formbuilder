@@ -1,10 +1,14 @@
 ## TODO
 
-- Maybe use dropdown for all field-item actions
+- Refactor conditional-form
 - Add delete condition in dropdown if there is one
-- Empty fields-list state
+- Conditional fields in renderer
+
 - Templates
 - Settings
-- Refactor conditional-form
-- Create validation tests
+
+- Insert field below actions (sub menu content)
+
+- Editor header actions better on mobile
 - Header wrapper component with scrolling styles
+- Create validation tests

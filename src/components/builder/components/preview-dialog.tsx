@@ -16,13 +16,9 @@ import FormRenderer from "../renderer";
 export default function PreviewDialog() {
   return (
     <Dialog>
-      <DialogTrigger
-        render={
-          <Button variant="ghost">
-            <Eye /> Preview
-          </Button>
-        }
-      ></DialogTrigger>
+      <DialogTrigger render={<Button variant="ghost" />}>
+        <Eye /> Preview
+      </DialogTrigger>
       <DialogContent className="flex max-w-3xl flex-col items-center px-4 pt-0 pb-6">
         <DialogHeader className="flex w-full items-start justify-between gap-4">
           <div>
