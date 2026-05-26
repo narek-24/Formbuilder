@@ -1,9 +1,9 @@
 import { useCallback, useState } from "react";
 import { type FormSchemaField } from "../schemas/form-schemas";
 import { useBuilderStore } from "../hooks/use-builder-store";
-import { ConditionalForm } from "./conditional-form";
 import { fieldRegistry } from "../fields/registry";
 import { Button } from "@/components/ui/button";
+import ConditionalForm from "./conditional-form";
 import {
   ArrowDown,
   ArrowUp,
@@ -12,6 +12,7 @@ import {
   Plus,
   Settings,
   Trash2,
+  X,
 } from "lucide-react";
 import {
   DropdownMenu,
@@ -129,6 +130,7 @@ function ActionsDropdown({
   setMode: (state: FieldItemMode) => void;
 }) {
   const removeField = useBuilderStore((state) => state.removeField);
+  const editField = useBuilderStore((state) => state.editField);
 
   if (!field.isSaved) {
     return (
@@ -141,6 +143,12 @@ function ActionsDropdown({
         <span className="sr-only">Delete Field</span>
       </Button>
     );
+  }
+
+  const hasFollowUp = !!field.followUps;
+
+  function removeLogic() {
+    editField({ ...field, followUps: undefined });
   }
 
   return (
@@ -158,8 +166,15 @@ function ActionsDropdown({
 
         <DropdownMenuItem onClick={() => setMode(FieldItemMode.Conditional)}>
           <GitBranch />
-          Configure Logic
+          {hasFollowUp ? "Edit Logic" : "Configure Logic"}
         </DropdownMenuItem>
+
+        {hasFollowUp && (
+          <DropdownMenuItem onClick={removeLogic}>
+            <X />
+            Remove Logic
+          </DropdownMenuItem>
+        )}
 
         <DropdownMenuItem>
           <Plus />

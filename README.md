@@ -1,7 +1,5 @@
 ## TODO
 
-- Refactor conditional-form
-- Add delete condition in dropdown if there is one
 - Conditional fields in renderer
 
 - Templates
