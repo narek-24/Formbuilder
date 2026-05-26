@@ -29,9 +29,10 @@ export default function NumberFieldRenderer({
 
           <Input
             {...field}
+            type="number"
             id={formField.id}
-            aria-invalid={fieldState.invalid}
             key={formField.id}
+            aria-invalid={fieldState.invalid}
             placeholder={
               formField.min ? `Min: ${formField.min}` : "Enter a number"
             }

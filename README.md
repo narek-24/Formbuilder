@@ -1,12 +1,12 @@
 ## TODO
 
-- Conditional fields in renderer
+- Create validtion refactor
+- Create validation tests
+
+- Insert field below actions (sub menu content)
 
 - Templates
 - Settings
 
-- Insert field below actions (sub menu content)
-
 - Editor header actions better on mobile
 - Header wrapper component with scrolling styles
-- Create validation tests
