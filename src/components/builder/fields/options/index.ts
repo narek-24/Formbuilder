@@ -9,6 +9,7 @@ export const OptionsField: FieldPlugin = {
   type: "options",
   label: "Options",
   category: "input",
+  icon: List,
 
   getDefaultValues() {
     return {
@@ -23,7 +24,6 @@ export const OptionsField: FieldPlugin = {
     };
   },
 
-  Icon: List,
   Form: OptionsFieldForm,
   Builder: BuilderOptionsField,
   Renderer: OptionsFieldRenderer,

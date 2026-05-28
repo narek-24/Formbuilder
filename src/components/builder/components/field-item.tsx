@@ -34,16 +34,20 @@ function fieldItemLabel(field: FormSchemaField) {
   return field.type;
 }
 
+// import { GitBranch } from "lucide-react";
+
 export default function FieldItem({ field }: { field: FormSchemaField }) {
   const [mode, setMode] = useState<FieldItemMode>(
     field.isSaved ? FieldItemMode.Default : FieldItemMode.Editing
   );
 
-  const Icon = fieldRegistry.get(field.type).Icon;
+  const Icon = fieldRegistry.get(field.type).icon;
 
   const setToDefault = useCallback(() => {
     setMode(FieldItemMode.Default);
   }, []);
+
+  const isConditional = !!field.followUps;
 
   return (
     <div className="card relative px-3 pt-2 pb-3 md:px-4">
@@ -59,7 +63,10 @@ export default function FieldItem({ field }: { field: FormSchemaField }) {
           </h3>
         </div>
 
-        <div className="shrink-0">
+        <div className="flex shrink-0 items-center gap-2">
+          {isConditional && (
+            <span className="text-xs text-muted-foreground">Condtional</span>
+          )}
           <ActionsDropdown setMode={setMode} field={field} />
         </div>
       </div>

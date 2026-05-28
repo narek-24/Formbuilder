@@ -9,7 +9,7 @@ export default function BuilderNumberField({ field }: BuilderProps) {
 
   return (
     <div className="space-y-1">
-      <Label htmlFor={field.id}>{field.label}</Label>
+      <Label htmlFor={`builder-${field.id}`}>{field.label}</Label>
 
       {field.description && (
         <p className="mb-1 text-sm text-muted-foreground">
@@ -19,7 +19,7 @@ export default function BuilderNumberField({ field }: BuilderProps) {
 
       <Input
         type="number"
-        id={field.id}
+        id={`builder-${field.id}`}
         placeholder={field.min?.toString() || "0"}
       />
     </div>

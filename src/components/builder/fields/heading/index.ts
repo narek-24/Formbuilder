@@ -8,6 +8,7 @@ export const HeadingField: FieldPlugin = {
   type: "heading",
   label: "Heading",
   category: "layout",
+  icon: Heading2,
 
   getDefaultValues() {
     return {
@@ -18,7 +19,6 @@ export const HeadingField: FieldPlugin = {
     };
   },
 
-  Icon: Heading2,
   Form: HeadingFieldForm,
   Builder: null,
   Renderer: HeadingFieldRenderer,

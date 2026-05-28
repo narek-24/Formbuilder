@@ -20,9 +20,12 @@ export default function BuilderOptionsField({ field }: BuilderProps) {
         <div className="space-y-2">
           {field.options.map((option) => (
             <div key={option.value} className="flex items-center gap-1">
-              <Checkbox value={option.value} id={option.value} />
+              <Checkbox
+                value={option.value}
+                id={`builder-${field.id}-${option.value}`}
+              />
               <Label
-                htmlFor={option.value}
+                htmlFor={`builder-${field.id}-${option.value}`}
                 className="pl-2 font-normal capitalize"
               >
                 {option.value}
@@ -36,10 +39,10 @@ export default function BuilderOptionsField({ field }: BuilderProps) {
             <div key={option.value} className="flex items-center gap-1">
               <RadioGroupItem
                 value={option.value}
-                id={option.value + field.id}
+                id={`builder-${field.id}-${option.value}`}
               />
               <Label
-                htmlFor={option.value + field.id}
+                htmlFor={`builder-${field.id}-${option.value}`}
                 className="pl-2 font-normal capitalize"
               >
                 {option.value}

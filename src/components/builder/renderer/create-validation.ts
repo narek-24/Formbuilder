@@ -1,95 +1,116 @@
+import {
+  type FieldType,
+  type FormSchema,
+  type FormSchemaField,
+} from "../schemas/form-schemas";
+import { isInputField } from "../schemas/input-schemas";
 import z from "zod";
-import type { ZodTypeAny } from "zod";
-import type { FormSchema, FormSchemaField } from "../schemas/form-schemas";
 
-const REQUIRED_MESSAGE = "This field is required";
+const MESSAGES = {
+  required: "This field is required",
+  maxString: "Must be at most 600 characters",
+  invalidNumber: "Must be a valid number",
+} as const;
 
 function applyStringRules(
   schema: z.ZodString | z.ZodEmail,
   isRequired: boolean
-): any {
-  schema = schema.max(600, { message: "Must be at most 600 characters" });
+) {
+  schema = schema.max(600, { message: MESSAGES.maxString });
   return isRequired
-    ? schema.min(1, { message: REQUIRED_MESSAGE })
+    ? schema.min(1, { message: MESSAGES.required })
     : schema.optional().or(z.literal(""));
 }
 
-function createOptionsSchema(field: FormSchemaField): ZodTypeAny {
-  if (field.type !== "options") throw "Not options field";
+function createTextFieldSchema(field: FormSchemaField) {
+  if (field.type !== "text") throw new Error("Not a text field");
+  return applyStringRules(z.string().trim(), field.isRequired);
+}
+
+function createOptionsFieldSchema(field: FormSchemaField) {
+  if (field.type !== "options") throw new Error("Not options field");
 
   if (field.multipleAnswers) {
     const schema = field.isRequired
       ? z.array(z.string()).min(1, { message: "Pick at least 1 option" })
       : z.array(z.string());
 
-    return schema.refine((res) =>
-      res.every((val) => field.options.map((f) => f.value).includes(val))
-    );
-  } else {
-    const schema = field.isRequired
-      ? z
-          .string({ message: REQUIRED_MESSAGE })
-          .refine((val) => field.options.some((o) => o.value === val), {
-            message: "Invalid option",
-          })
-      : z.string().optional();
-
-    return schema;
+    return schema.refine((res) => {
+      const validOptions = new Set(field.options.map((o) => o.value));
+      return res.every((val) => validOptions.has(val));
+    });
   }
+
+  if (field.isRequired) {
+    return z
+      .string({ message: MESSAGES.required })
+      .refine((val) => field.options.some((o) => o.value === val), {
+        message: "Invalid option",
+      });
+  }
+
+  return z.string().optional();
 }
 
-function createNumberSchema(field: FormSchemaField): ZodTypeAny {
-  if (field.type !== "number") throw "Not number field";
+function createNumberFieldSchema(field: FormSchemaField) {
+  if (field.type !== "number") throw new Error("Not a number field");
 
-  let numberSchema = z.coerce.number({ message: "Must be a number" });
-  if (typeof field.min === "number") {
-    numberSchema = numberSchema.min(field.min, {
-      message: `Must be at least ${field.min}`,
-    });
-  }
+  const numberSchema = z.string().superRefine((val, ctx) => {
+    if (val === "") {
+      return field.isRequired
+        ? ctx.addIssue({
+            code: "custom",
+            message: MESSAGES.required,
+          })
+        : undefined;
+    }
 
-  if (typeof field.max === "number") {
-    numberSchema = numberSchema.max(field.max, {
-      message: `Must be at most ${field.max}`,
-    });
-  }
+    const num = Number(val);
+    if (isNaN(num)) {
+      ctx.addIssue({
+        code: "custom",
+        message: MESSAGES.invalidNumber,
+      });
+      return;
+    }
+
+    if (typeof field.min === "number" && num < field.min) {
+      ctx.addIssue({
+        code: "custom",
+        message: `Must be at least ${field.min}`,
+      });
+    }
+
+    if (typeof field.max === "number" && num > field.max) {
+      ctx.addIssue({
+        code: "custom",
+        message: `Must be at most ${field.max}`,
+      });
+    }
+  });
 
   return numberSchema;
 }
 
-function createFieldSchema(field: FormSchemaField): ZodTypeAny {
-  if (field.category !== "input") throw Error("");
+const fieldSchemaFactories = {
+  text: createTextFieldSchema,
+  number: createNumberFieldSchema,
+  options: createOptionsFieldSchema,
 
-  const isRequired = field.isRequired && !field.followUps;
+  divider: null,
+  heading: null,
+} as const satisfies Record<
+  FieldType,
+  ((field: FormSchemaField) => z.ZodTypeAny) | null
+>;
 
-  switch (field.type) {
-    case "text": {
-      return applyStringRules(z.string().trim(), field.isRequired);
-    }
-
-    case "options": {
-      const baseSchema = createOptionsSchema({
-        ...field,
-        isRequired: isRequired,
-      });
-      return baseSchema;
-    }
-
-    case "number": {
-      const numberSchema = createNumberSchema(field);
-      return isRequired
-        ? numberSchema.refine((val) => !isNaN(val as number), {
-            message: "This field is required and must be a valid number",
-          })
-        : z
-            .literal("")
-            .transform(() => undefined)
-            .or(numberSchema.optional());
-    }
-
-    default:
-      throw new Error("Unsupported field type");
+function createFieldSchema(field: FormSchemaField) {
+  const factory = fieldSchemaFactories[field.type];
+  if (!factory) {
+    throw new Error(`Unsupported field type: ${field.type}`);
   }
+
+  return factory(field);
 }
 
 function getDefaultValue(field: FormSchemaField) {
@@ -103,15 +124,13 @@ function getDefaultValue(field: FormSchemaField) {
 }
 
 export function createValidationSchema(form: FormSchema) {
-  const shape: Record<string, ZodTypeAny> = {};
+  const shape: Record<string, any> = {};
   const defaultValues: Record<string, any> = {};
 
-  form
-    .filter((f) => f.category === "input")
-    .forEach((field) => {
-      defaultValues[field.id] = getDefaultValue(field);
-      shape[field.id] = createFieldSchema(field);
-    });
+  form.filter(isInputField).forEach((field) => {
+    defaultValues[field.id] = getDefaultValue(field);
+    shape[field.id] = createFieldSchema(field);
+  });
 
   return { schema: z.object(shape), defaultValues };
 }

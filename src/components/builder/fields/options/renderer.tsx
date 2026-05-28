@@ -22,7 +22,7 @@ export default function OptionsFieldRenderer({
       control={form.control}
       render={({ field, fieldState }) => (
         <Field data-invalid={fieldState.invalid}>
-          <FieldLabel htmlFor={formField.id}>{formField.label}</FieldLabel>
+          <FieldLabel>{formField.label}</FieldLabel>
 
           {formField.description && (
             <FieldDescription>{formField.description}</FieldDescription>
@@ -34,10 +34,10 @@ export default function OptionsFieldRenderer({
                 <label
                   key={option.value}
                   className="flex items-center gap-2 text-sm"
-                  htmlFor={`${formField.id}-${option.value}`}
+                  htmlFor={`renderer-${formField.id}-${option.value}`}
                 >
                   <Checkbox
-                    id={`${formField.id}-${option.value}`}
+                    id={`renderer-${formField.id}-${option.value}`}
                     checked={
                       Array.isArray(field.value) &&
                       field.value.includes(option.value)
@@ -59,20 +59,20 @@ export default function OptionsFieldRenderer({
             </div>
           ) : (
             <RadioGroup
-              id={formField.id}
+              id={`renderer-${formField.id}`}
               value={String(field.value ?? "")}
               onValueChange={field.onChange}
-              className="mt-2 flex flex-col space-y-2"
+              className="mt-2 flex flex-col space-y-1"
             >
               {formField.options.map((option) => (
                 <label
                   key={option.value}
                   className="flex items-center gap-2 text-sm"
-                  htmlFor={`${formField.id}-${option.value}`}
+                  htmlFor={`renderer-${formField.id}-${option.value}`}
                 >
                   <RadioGroupItem
                     value={option.value}
-                    id={`${formField.id}-${option.value}`}
+                    id={`renderer-${formField.id}-${option.value}`}
                   />
                   <span>{option.value}</span>
                 </label>

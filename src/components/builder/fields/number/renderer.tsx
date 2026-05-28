@@ -21,7 +21,9 @@ export default function NumberFieldRenderer({
       control={form.control}
       render={({ field, fieldState }) => (
         <Field data-invalid={fieldState.invalid}>
-          <FieldLabel htmlFor={field.name}>{formField.label}</FieldLabel>
+          <FieldLabel htmlFor={`renderer-${formField.id}`}>
+            {formField.label}
+          </FieldLabel>
 
           {formField.description && (
             <FieldDescription>{formField.description}</FieldDescription>
@@ -30,7 +32,7 @@ export default function NumberFieldRenderer({
           <Input
             {...field}
             type="number"
-            id={formField.id}
+            id={`renderer-${formField.id}`}
             key={formField.id}
             aria-invalid={fieldState.invalid}
             placeholder={

@@ -10,7 +10,7 @@ export default function BuilderTextField({ field }: BuilderProps) {
 
   return (
     <div className="space-y-1">
-      <Label htmlFor={field.id}>{field.label}</Label>
+      <Label htmlFor={`builder-${field.id}`}>{field.label}</Label>
 
       {field.description && (
         <p className="mb-1 text-sm text-muted-foreground">
@@ -20,11 +20,14 @@ export default function BuilderTextField({ field }: BuilderProps) {
 
       {field.longAnswer ? (
         <Textarea
-          id={field.id}
+          id={`builder-${field.id}`}
           placeholder={field.placeholder || "Your answer"}
         />
       ) : (
-        <Input id={field.id} placeholder={field.placeholder || "Your answer"} />
+        <Input
+          id={`builder-${field.id}`}
+          placeholder={field.placeholder || "Your answer"}
+        />
       )}
     </div>
   );

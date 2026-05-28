@@ -19,7 +19,7 @@ export default function PreviewDialog() {
       <DialogTrigger render={<Button variant="ghost" />}>
         <Eye /> Preview
       </DialogTrigger>
-      <DialogContent className="flex max-w-3xl flex-col items-center px-4 pt-0 pb-6">
+      <DialogContent className="flex max-w-3xl flex-col items-center overscroll-contain scroll-smooth px-4 pt-0 pb-6">
         <DialogHeader className="flex w-full items-start justify-between gap-4">
           <div>
             <DialogTitle className="sr-only">Preview</DialogTitle>

@@ -57,7 +57,7 @@ export default function NumberFieldForm({ field, setToDefault }: FormProps) {
               id="label"
               {...field}
               aria-invalid={fieldState.invalid}
-              placeholder="What is your name?"
+              placeholder="How old are you?"
               ref={firstInputRef}
             />
             {fieldState.invalid && <FieldError errors={[fieldState.error]} />}

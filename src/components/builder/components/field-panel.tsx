@@ -32,7 +32,7 @@ export default function FieldPanel() {
                 onClick={() => handleAddField(field.type)}
                 className="flex cursor-pointer flex-col items-center gap-2 rounded-lg border-2 p-3 text-sm font-medium hover:bg-muted"
               >
-                <field.Icon className="pointer-events-none size-7" />
+                <field.icon className="pointer-events-none size-7" />
                 {field.label}
               </button>
             ))}

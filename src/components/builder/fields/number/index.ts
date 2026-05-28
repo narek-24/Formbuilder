@@ -9,6 +9,7 @@ export const NumberField: FieldPlugin = {
   type: "number",
   label: "Number",
   category: "input",
+  icon: Sigma,
 
   getDefaultValues() {
     return {
@@ -19,7 +20,6 @@ export const NumberField: FieldPlugin = {
     };
   },
 
-  Icon: Sigma,
   Form: NumberFieldForm,
   Builder: BuilderNumberField,
   Renderer: NumberFieldRenderer,

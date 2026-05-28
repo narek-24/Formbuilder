@@ -9,6 +9,7 @@ export const TextField: FieldPlugin = {
   type: "text",
   label: "Text",
   category: "input",
+  icon: Type,
 
   getDefaultValues() {
     return {
@@ -20,7 +21,6 @@ export const TextField: FieldPlugin = {
     };
   },
 
-  Icon: Type,
   Form: TextFieldForm,
   Builder: BuilderTextField,
   Renderer: TextFieldRenderer,

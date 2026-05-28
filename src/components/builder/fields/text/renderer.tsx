@@ -19,7 +19,9 @@ export default function TextFieldRenderer({ formField, form }: RendererProps) {
       control={form.control}
       render={({ field, fieldState }) => (
         <Field data-invalid={fieldState.invalid}>
-          <FieldLabel htmlFor={field.name}>{formField.label}</FieldLabel>
+          <FieldLabel htmlFor={`renderer-${formField.id}`}>
+            {formField.label}
+          </FieldLabel>
 
           {formField.description && (
             <FieldDescription>{formField.description}</FieldDescription>
@@ -28,7 +30,7 @@ export default function TextFieldRenderer({ formField, form }: RendererProps) {
           {formField.longAnswer ? (
             <Textarea
               {...field}
-              id={formField.id}
+              id={`renderer-${formField.id}`}
               aria-invalid={fieldState.invalid}
               key={formField.id}
               placeholder={formField.placeholder || "Your answer"}
@@ -36,7 +38,7 @@ export default function TextFieldRenderer({ formField, form }: RendererProps) {
           ) : (
             <Input
               {...field}
-              id={formField.id}
+              id={`renderer-${formField.id}`}
               aria-invalid={fieldState.invalid}
               key={formField.id}
               placeholder={formField.placeholder || "Your answer"}

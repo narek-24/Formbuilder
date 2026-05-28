@@ -8,6 +8,7 @@ export const DividerField: FieldPlugin = {
   type: "divider",
   label: "Divider",
   category: "layout",
+  icon: Divide,
 
   getDefaultValues() {
     return {
@@ -17,7 +18,6 @@ export const DividerField: FieldPlugin = {
     };
   },
 
-  Icon: Divide,
   Form: DividerFieldForm,
   Builder: null,
   Renderer: DividerFieldRenderer,
