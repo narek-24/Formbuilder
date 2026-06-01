@@ -19,27 +19,25 @@ const FIELDS = {
   divider: DividerField,
 } as const satisfies Record<FieldType, FieldPlugin>;
 
-interface CategorizedField {
-  label: string;
-  fields: FieldPlugin[];
-}
-
 export const fieldRegistry = {
   get(type: FieldType) {
     return FIELDS[type];
   },
 
   getCategorized() {
-    const result: Record<Category, CategorizedField> = {
-      input: { label: CATEGORIES.input, fields: [] },
-      layout: { label: CATEGORIES.layout, fields: [] },
-    };
+    const map = CATEGORIES.reduce(
+      (acc, category) => {
+        acc[category] = [];
+        return acc;
+      },
+      {} as Record<Category, FieldPlugin[]>
+    );
 
     for (const field of Object.values(FIELDS)) {
-      result[field.category].fields.push(field);
+      map[field.category]!.push(field);
     }
 
-    return Object.values(result);
+    return map;
   },
 } as const;
 

@@ -110,7 +110,10 @@ function createFieldSchema(field: FormSchemaField) {
     throw new Error(`Unsupported field type: ${field.type}`);
   }
 
-  return factory(field);
+  const schema = factory(field);
+
+  // If a field is conditional then it shouldn't be required, since it might not even be shown.
+  return !!field.followUps ? schema.optional() : schema;
 }
 
 function getDefaultValue(field: FormSchemaField) {

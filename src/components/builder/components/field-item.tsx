@@ -34,8 +34,6 @@ function fieldItemLabel(field: FormSchemaField) {
   return field.type;
 }
 
-// import { GitBranch } from "lucide-react";
-
 export default function FieldItem({ field }: { field: FormSchemaField }) {
   const [mode, setMode] = useState<FieldItemMode>(
     field.isSaved ? FieldItemMode.Default : FieldItemMode.Editing

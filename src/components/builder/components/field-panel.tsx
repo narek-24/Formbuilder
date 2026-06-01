@@ -19,14 +19,14 @@ export default function FieldPanel() {
         Click a field to add to your form
       </p>
 
-      {categorizedFields.map((category) => (
-        <div className="mb-6" key={category.label}>
+      {Object.entries(categorizedFields).map(([category, fields]) => (
+        <div className="mb-6" key={category}>
           <h3 className="mb-2 text-xs font-medium tracking-wider text-muted-foreground uppercase">
-            {category.label}
+            {category} fields
           </h3>
 
           <div className="grid grid-cols-2 gap-3">
-            {category.fields.map((field) => (
+            {fields.map((field) => (
               <button
                 key={field.type}
                 onClick={() => handleAddField(field.type)}
