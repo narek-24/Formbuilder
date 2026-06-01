@@ -23,7 +23,7 @@ export default function TemplatesDialog() {
       </DialogTrigger>
       <DialogContent className="p-10 sm:max-w-3xl">
         <DialogHeader>
-          <DialogTitle>Explore form templates</DialogTitle>
+          <DialogTitle className="text-xl">Explore form templates</DialogTitle>
           <DialogDescription>
             Choose a template to get started with your form.
           </DialogDescription>

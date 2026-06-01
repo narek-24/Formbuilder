@@ -1,5 +1,5 @@
 import Builder from "@/components/builder";
-import EditorHeader from "./_components/editor-header";
+import EditorHeader from "./_components/header";
 
 export default function EditorPage() {
   return (
