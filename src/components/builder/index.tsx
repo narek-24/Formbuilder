@@ -39,8 +39,8 @@ function FieldsList() {
 
   return (
     <div className="mx-auto w-full max-w-2xl space-y-8">
-      {fields.map((field) => (
-        <FieldItem key={field.id} field={field} />
+      {fields.map((field, i) => (
+        <FieldItem key={field.id} field={field} index={i} />
       ))}
     </div>
   );

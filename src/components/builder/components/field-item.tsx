@@ -17,8 +17,14 @@ import {
 import {
   DropdownMenu,
   DropdownMenuContent,
+  DropdownMenuGroup,
   DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuPortal,
   DropdownMenuSeparator,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown";
 
@@ -34,7 +40,13 @@ function fieldItemLabel(field: FormSchemaField) {
   return field.type;
 }
 
-export default function FieldItem({ field }: { field: FormSchemaField }) {
+export default function FieldItem({
+  field,
+  index,
+}: {
+  field: FormSchemaField;
+  index: number;
+}) {
   const [mode, setMode] = useState<FieldItemMode>(
     field.isSaved ? FieldItemMode.Default : FieldItemMode.Editing
   );
@@ -65,7 +77,7 @@ export default function FieldItem({ field }: { field: FormSchemaField }) {
           {isConditional && (
             <span className="text-xs text-muted-foreground">Condtional</span>
           )}
-          <ActionsDropdown setMode={setMode} field={field} />
+          <ActionsDropdown setMode={setMode} field={field} index={index} />
         </div>
       </div>
 
@@ -129,9 +141,11 @@ function MoveButtons({ fieldId }: { fieldId: string }) {
 
 function ActionsDropdown({
   field,
+  index,
   setMode,
 }: {
   field: FormSchemaField;
+  index: number;
   setMode: (state: FieldItemMode) => void;
 }) {
   const removeField = useBuilderStore((state) => state.removeField);
@@ -152,10 +166,6 @@ function ActionsDropdown({
 
   const hasFollowUp = !!field.followUps;
 
-  function removeLogic() {
-    editField({ ...field, followUps: undefined });
-  }
-
   return (
     <DropdownMenu>
       <DropdownMenuTrigger render={<Button variant="ghost" size="icon-sm" />}>
@@ -163,7 +173,7 @@ function ActionsDropdown({
         <span className="sr-only">Field actions</span>
       </DropdownMenuTrigger>
 
-      <DropdownMenuContent align="end" className="w-46">
+      <DropdownMenuContent align="end" className="w-50">
         <DropdownMenuItem onClick={() => setMode(FieldItemMode.Editing)}>
           <Pencil />
           Edit Field
@@ -175,16 +185,23 @@ function ActionsDropdown({
         </DropdownMenuItem>
 
         {hasFollowUp && (
-          <DropdownMenuItem onClick={removeLogic}>
+          <DropdownMenuItem
+            onClick={() => editField({ ...field, followUps: undefined })}
+          >
             <X />
             Remove Logic
           </DropdownMenuItem>
         )}
 
-        <DropdownMenuItem>
-          <Plus />
-          Insert Field Below
-        </DropdownMenuItem>
+        <DropdownMenuSub>
+          <DropdownMenuSubTrigger>
+            <Plus />
+            Insert Field Below
+          </DropdownMenuSubTrigger>
+          <DropdownMenuPortal>
+            <InsertFieldBelowContent index={index} />
+          </DropdownMenuPortal>
+        </DropdownMenuSub>
 
         <DropdownMenuSeparator />
 
@@ -197,5 +214,29 @@ function ActionsDropdown({
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
+  );
+}
+
+function InsertFieldBelowContent({ index }: { index: number }) {
+  const fields = fieldRegistry.getCategorized();
+  const addField = useBuilderStore((state) => state.addField);
+
+  return (
+    <DropdownMenuSubContent>
+      {Object.entries(fields).map(([category, fields]) => (
+        <DropdownMenuGroup key={category} className="not-last:mb-2">
+          <DropdownMenuLabel>{category} fields</DropdownMenuLabel>
+          {fields.map((field) => (
+            <DropdownMenuItem
+              key={field.type}
+              onClick={() => addField(field.type, index + 1)}
+            >
+              <field.icon className="size-4" />
+              {field.label}
+            </DropdownMenuItem>
+          ))}
+        </DropdownMenuGroup>
+      ))}
+    </DropdownMenuSubContent>
   );
 }

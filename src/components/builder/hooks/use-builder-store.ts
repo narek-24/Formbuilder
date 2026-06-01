@@ -1,8 +1,13 @@
 "use client";
 
-import { type FormSchema, type FormSchemaField } from "../schemas/form-schemas";
+import {
+  type FieldType,
+  type FormSchema,
+  type FormSchemaField,
+} from "../schemas/form-schemas";
 import { persist } from "zustand/middleware";
 import { create } from "zustand";
+import { fieldRegistry } from "../fields/registry";
 
 interface Settings {
   title: string;
@@ -14,7 +19,7 @@ interface Store {
   setTitle: (title: string) => void;
 
   fields: FormSchema;
-  addField: (field: FormSchemaField, index?: number) => void;
+  addField: (type: FieldType, index?: number) => void;
   setFields: (fields: FormSchema) => void;
   editField: (field: FormSchemaField) => void;
   removeField: (id: string) => void;
@@ -35,7 +40,9 @@ export const useBuilderStore = create(
         set({ fields });
       },
 
-      addField: (field, index) => {
+      addField: (type, index) => {
+        const field = fieldRegistry.get(type).getDefaultValues();
+
         set((state) => {
           if (typeof index === "number") {
             return {

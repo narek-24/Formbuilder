@@ -1,6 +1,5 @@
 ## TODO
 
-- Insert field below actions (sub menu content)
 - Templates
 - Settings
 

@@ -1,16 +1,10 @@
 import { fieldRegistry } from "../fields/registry";
 import { useBuilderStore } from "../hooks/use-builder-store";
-import type { FieldType } from "../schemas/form-schemas";
 
 const categorizedFields = fieldRegistry.getCategorized();
 
 export default function FieldPanel() {
   const addField = useBuilderStore((state) => state.addField);
-
-  function handleAddField(type: FieldType) {
-    const defaultValues = fieldRegistry.get(type).getDefaultValues();
-    addField(defaultValues);
-  }
 
   return (
     <div className="scrollbar-stable card sticky top-18 scrollbar-thin h-fit max-h-[calc(100dvh-110px)] overflow-hidden py-5 pr-4 pl-6 hover:overflow-y-auto max-lg:hidden">
@@ -29,7 +23,7 @@ export default function FieldPanel() {
             {fields.map((field) => (
               <button
                 key={field.type}
-                onClick={() => handleAddField(field.type)}
+                onClick={() => addField(field.type)}
                 className="flex cursor-pointer flex-col items-center gap-2 rounded-lg border-2 p-3 text-sm font-medium hover:bg-muted"
               >
                 <field.icon className="pointer-events-none size-7" />
