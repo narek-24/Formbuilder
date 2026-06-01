@@ -1,9 +1,10 @@
-import { Book, MoveLeft, Settings } from "lucide-react";
+import { Book, MoveLeft } from "lucide-react";
 import { Button, buttonVariants } from "@/components/ui/button";
 import PreviewDialog from "@/components/builder/components/preview-dialog";
 import ThemeToggle from "@/components/theme-toggle";
 import TitleInput from "./title-input";
 import Link from "next/link";
+import SettingsDialog from "@/components/builder/components/settings-dialog";
 
 export default function EditorHeader() {
   return (
@@ -19,9 +20,7 @@ export default function EditorHeader() {
           <TitleInput />
         </div>
         <div className="flex items-center gap-3">
-          <Button variant="ghost">
-            <Settings /> Settings
-          </Button>
+          <SettingsDialog />
           <PreviewDialog />
           <Button>
             <Book /> Publish

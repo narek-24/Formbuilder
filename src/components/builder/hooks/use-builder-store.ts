@@ -17,6 +17,7 @@ interface Settings {
 interface Store {
   settings: Settings;
   setTitle: (title: string) => void;
+  setDescription: (description: string) => void;
 
   fields: FormSchema;
   addField: (type: FieldType, index?: number) => void;
@@ -32,6 +33,9 @@ export const useBuilderStore = create(
       settings: { title: "", description: "" },
       setTitle: (title) => {
         set((state) => ({ settings: { ...state.settings, title } }));
+      },
+      setDescription: (description) => {
+        set((state) => ({ settings: { ...state.settings, description } }));
       },
 
       fields: [],

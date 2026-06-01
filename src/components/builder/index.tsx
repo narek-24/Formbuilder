@@ -4,6 +4,7 @@ import { useBuilderStore } from "./hooks/use-builder-store";
 import { FilePlus2 } from "lucide-react";
 import FieldPanel from "./components/field-panel";
 import FieldItem from "./components/field-item";
+import TemplatesDialog from "./components/templates";
 
 export default function Builder() {
   return (
@@ -28,11 +29,13 @@ function FieldsList() {
           Start building your form
         </h2>
 
-        <p className="mx-auto mt-2 max-w-md text-sm leading-relaxed text-muted-foreground">
+        <p className="mx-auto mt-2 mb-6 max-w-md text-sm leading-relaxed text-muted-foreground">
           Add your first field from the left panel to begin creating your form.
           You can reorder fields, configure logic, and customize everything
           later.
         </p>
+
+        <TemplatesDialog />
       </div>
     );
   }

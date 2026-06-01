@@ -66,7 +66,7 @@ function DropdownMenuLabel({
       data-slot="dropdown-menu-label"
       data-inset={inset}
       className={cn(
-        "p-1 text-xs font-semibold text-muted-foreground uppercase data-inset:pl-8",
+        "p-1 text-xs font-medium text-muted-foreground uppercase data-inset:pl-8",
         className
       )}
       {...props}
