@@ -1,10 +1,7 @@
-import Link from "next/link";
-
 export default function Home() {
   return (
     <>
-      <h1>Dashboard</h1>
-      <Link href="/editor">Editor</Link>
+      <h1>TODO: Dashboard</h1>
     </>
   );
 }

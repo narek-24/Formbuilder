@@ -7,7 +7,7 @@ export default function FieldPanel() {
   const addField = useBuilderStore((state) => state.addField);
 
   return (
-    <div className="scrollbar-stable card sticky top-18 scrollbar-thin h-fit max-h-[calc(100dvh-110px)] overflow-hidden py-5 pr-4 pl-6 hover:overflow-y-auto max-lg:hidden">
+    <div className="scrollbar-stable card sticky top-19 scrollbar-thin h-fit max-h-[calc(100dvh-110px)] overflow-hidden py-5 pr-4 pl-6 hover:overflow-y-auto max-lg:hidden">
       <h2 className="mb-1 font-semibold">Fields</h2>
       <p className="mb-6 text-sm text-muted-foreground">
         Click a field to add to your form

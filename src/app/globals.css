@@ -22,7 +22,7 @@
 
   --muted: hsla(240, 30%, 20%, 4%);
   --muted-hover: hsla(240, 30%, 20%, 8%);
-  --muted-foreground: hsl(0, 0%, 40%);
+  --muted-foreground: hsl(0, 0%, 35%);
 
   --danger: hsl(350, 70%, 45%);
   --danger-text: hsl(350, 75%, 25%);
@@ -49,7 +49,7 @@
 
   --muted: hsla(240, 12%, 70%, 10%);
   --muted-hover: hsl(240, 12%, 70%, 15%);
-  --muted-foreground: hsl(240, 7%, 55%);
+  --muted-foreground: hsl(240, 7%, 60%);
 
   --danger: hsl(359, 80%, 62%);
   --danger-text: hsl(359, 90%, 70%);

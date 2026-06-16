@@ -21,7 +21,7 @@ export default function TemplatesDialog() {
       <DialogTrigger render={<Button />}>
         <LayoutPanelTop className="size-4" /> Start from a template
       </DialogTrigger>
-      <DialogContent className="p-10 sm:max-w-3xl">
+      <DialogContent className="p-8 sm:max-w-3xl">
         <DialogHeader>
           <DialogTitle className="text-xl">Explore form templates</DialogTitle>
           <DialogDescription>

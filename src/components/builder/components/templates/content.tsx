@@ -23,7 +23,7 @@ export default function TemplatesContent({
       {TEMPLATES.map((t, i) => (
         <li key={i}>
           <Button
-            className="cursor-pointer rounded-lg border-2 bg-muted p-4 text-left hover:bg-muted-hover focus-visible:bg-muted-hover"
+            className="cursor-pointer rounded-lg border-2 p-4 text-left hover:bg-muted-hover focus-visible:bg-muted-hover"
             onClick={() => setTemplate(t)}
           >
             <h3 className="mb-1 font-bold">{t.title}</h3>
