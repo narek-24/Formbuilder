@@ -6,7 +6,7 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  --background: hsl(0, 0%, 99%);
+  --background: hsl(0, 0%, 98%);
   --foreground: hsl(0, 0%, 4%);
 
   --card: hsl(0, 0%, 100%);
@@ -33,14 +33,14 @@
 }
 
 .dark {
-  --background: hsl(240, 6%, 6%);
+  --background: hsl(240, 5%, 4%);
   --foreground: hsl(0, 0%, 98%);
 
-  --card: hsl(240, 6%, 7%);
-  --popover: hsl(240, 6%, 9%);
+  --card: hsl(240, 5%, 6%);
+  --popover: hsl(240, 5%, 8%);
 
-  --input: hsl(240, 6%, 10%);
-  --input-border: hsl(240, 6%, 15%);
+  --input: hsl(240, 5%, 9%);
+  --input-border: hsl(240, 5%, 14%);
 
   --primary: hsl(0, 0%, 99%);
   --primary-text: hsl(335, 40%, 60%);

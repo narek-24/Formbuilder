@@ -1,12 +1,12 @@
 "use client";
 
 import { useBuilderStore } from "./hooks/use-builder-store";
+import { useMediaQuery } from "@/hooks/use-media-query";
 import { FileText } from "lucide-react";
+import TemplatesDialog from "./components/templates";
+import AddFieldDialog from "./components/add-field";
 import FieldPanel from "./components/field-panel";
 import FieldItem from "./components/field-item";
-import TemplatesDialog from "./components/templates";
-import { useMediaQuery } from "@/hooks/use-media-query";
-import AddFieldDialog from "./components/add-field";
 
 export default function Builder() {
   return (

@@ -218,12 +218,12 @@ function ActionsDropdown({
 }
 
 function InsertFieldBelowContent({ index }: { index: number }) {
-  const fields = fieldRegistry.getCategorized();
+  const categorizedFields = fieldRegistry.getCategorized();
   const addField = useBuilderStore((state) => state.addField);
 
   return (
     <DropdownMenuSubContent>
-      {Object.entries(fields).map(([category, fields]) => (
+      {Object.entries(categorizedFields).map(([category, fields]) => (
         <DropdownMenuGroup key={category} className="not-last:mb-2">
           <DropdownMenuLabel>{category} fields</DropdownMenuLabel>
           {fields.map((field) => (

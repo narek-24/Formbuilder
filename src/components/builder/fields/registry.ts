@@ -20,11 +20,17 @@ const FIELDS = {
 } as const satisfies Record<FieldType, FieldPlugin>;
 
 export const fieldRegistry = {
+  categorizedFields: null as Record<Category, FieldPlugin[]> | null,
+
   get(type: FieldType) {
     return FIELDS[type];
   },
 
   getCategorized() {
+    if (this.categorizedFields !== null) {
+      return this.categorizedFields;
+    }
+
     const map = CATEGORIES.reduce(
       (acc, category) => {
         acc[category] = [];
@@ -33,13 +39,14 @@ export const fieldRegistry = {
       {} as Record<Category, FieldPlugin[]>
     );
 
-    for (const field of Object.values(FIELDS)) {
-      map[field.category]!.push(field);
+    for (const plugin of Object.values(FIELDS)) {
+      map[plugin.category]!.push(plugin);
     }
 
-    return map;
+    this.categorizedFields = map;
+    return this.categorizedFields;
   },
-} as const;
+};
 
 export interface FieldPlugin {
   type: FieldType;

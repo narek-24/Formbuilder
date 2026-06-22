@@ -6,5 +6,6 @@
 - Drag and drop
 - Help dialog explaining how to use the builder
 
-- Improvements for conditional logic, more operators (gte, lte), non empty.
+- Improvements for conditional logic, more operators (eq, contains, gte, lte), non empty.
 - More field types
+- Refactor panel/add-field to shared component and search/filter options
