@@ -1,6 +1,5 @@
 "use client";
 
-import { registerAction } from "@/server/actions/register";
 import {
   registerSchema,
   type RegisterSchemaType,
@@ -9,10 +8,10 @@ import { Field, FieldError, FieldLabel } from "@/components/ui/field";
 import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
-import { signIn } from "next-auth/react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useAction } from "next-safe-action/hooks";
+import { registerAction } from "@/server/actions/register";
 
 export default function RegisterForm() {
   const [isLoading, setIsLoading] = useState(false);
@@ -33,22 +32,23 @@ export default function RegisterForm() {
       setIsLoading(true);
     },
     onSuccess: ({ input }) => {
-      signIn("credentials", {
-        email: input.email,
-        password: input.password,
-        redirect: false,
-      })
-        .then((res) => {
-          if (res?.ok) {
-            location.replace("/");
-          }
-        })
-        .catch(() => {
-          location.replace("/login");
-        })
-        .finally(() => {
-          setIsLoading(false);
-        });
+      console.log(input);
+      // signIn("credentials", {
+      //   email: input.email,
+      //   password: input.password,
+      //   redirect: false,
+      // })
+      //   .then((res) => {
+      //     if (res?.ok) {
+      //       location.replace("/");
+      //     }
+      //   })
+      //   .catch(() => {
+      //     location.replace("/login");
+      //   })
+      //   .finally(() => {
+      //     setIsLoading(false);
+      //   });
     },
     onSettled: () => {
       setIsLoading(false);

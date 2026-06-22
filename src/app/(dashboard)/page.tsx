@@ -1,7 +1,7 @@
+import { redirect } from "next/navigation";
+
 export default function Home() {
-  return (
-    <>
-      <h1>TODO: Dashboard</h1>
-    </>
-  );
+  redirect("/landing");
+
+  return <>TODO: Dashboard page</>;
 }

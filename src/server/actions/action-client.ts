@@ -1,5 +1,4 @@
 import { createSafeActionClient } from "next-safe-action";
-import { getServerAuthSession } from "../auth";
 
 export class ActionError extends Error {
   constructor(message: string) {
@@ -35,16 +34,16 @@ export const actionClient = createSafeActionClient({
 });
 
 export const protectedActionClient = actionClient.use(async ({ next, ctx }) => {
-  const session = await getServerAuthSession();
+  // const session = await getServerAuthSession();
 
-  if (!session?.user) {
-    throw new ActionError("You must be signed in to perform this action.");
-  }
+  // if (!session?.user) {
+  //   throw new ActionError("You must be signed in to perform this action.");
+  // }
 
   return next({
     ctx: {
       ...ctx,
-      userId: session.user.id,
+      userId: "session.user.id,",
     },
   });
 });

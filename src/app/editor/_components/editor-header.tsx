@@ -1,6 +1,5 @@
-import { Book, EllipsisVertical, MoveLeft } from "lucide-react";
-import { Button, buttonVariants } from "@/components/ui/button";
-import Link from "next/link";
+import { EllipsisVertical } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import TitleInput from "./title-input";
 import SettingsDialog from "@/components/builder/components/settings-dialog";
 import PreviewDialog from "@/components/builder/components/preview-dialog";
@@ -10,18 +9,15 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import PublishDialog from "@/components/builder/components/publish-dialog";
+import BackButton from "@/app/(dashboard)/_components/back-button";
 
 export default function EditorHeader() {
   return (
     <header className="sticky top-0 left-0 z-50 mb-5 bg-background">
       <div className="container flex h-14 items-center justify-between">
         <div className="flex items-center gap-4">
-          <Link
-            href="/"
-            className={buttonVariants({ variant: "ghost", size: "icon" })}
-          >
-            <MoveLeft />
-          </Link>
+          <BackButton />
           <TitleInput />
         </div>
 
@@ -30,9 +26,7 @@ export default function EditorHeader() {
           {/* <HelpDialog /> */}
           <SettingsDialog />
           <PreviewDialog />
-          <Button>
-            <Book /> Publish
-          </Button>
+          <PublishDialog />
           <ThemeToggle />
         </div>
 
@@ -45,9 +39,7 @@ export default function EditorHeader() {
             <PopoverContent className="grid w-40 gap-2 p-2 [&>button]:justify-start">
               <SettingsDialog />
               <PreviewDialog />
-              <Button>
-                <Book /> Publish
-              </Button>
+              <PublishDialog />
             </PopoverContent>
           </Popover>
 

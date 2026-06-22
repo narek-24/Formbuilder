@@ -6,7 +6,6 @@ import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { signIn } from "next-auth/react";
 import { Input } from "@/components/ui/input";
 
 export default function LoginForm() {
@@ -24,23 +23,25 @@ export default function LoginForm() {
   async function onSubmit(data: LoginSchemaType) {
     if (isLoading) return;
 
+    console.log(data);
+
     setIsLoading(true);
     setError("");
 
-    signIn("credentials", { ...data, redirect: false })
-      .then((res) => {
-        if (res?.ok) {
-          location.replace("/");
-        } else if (res?.error) {
-          setError("Invalid Credentials");
-        }
-      })
-      .catch(() => {
-        setError("Something went wrong");
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
+    // signIn("credentials", { ...data, redirect: false })
+    //   .then((res) => {
+    //     if (res?.ok) {
+    //       location.replace("/");
+    //     } else if (res?.error) {
+    //       setError("Invalid Credentials");
+    //     }
+    //   })
+    //   .catch(() => {
+    //     setError("Something went wrong");
+    //   })
+    //   .finally(() => {
+    //     setIsLoading(false);
+    //   });
   }
 
   return (
