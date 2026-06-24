@@ -19,7 +19,7 @@ export default function PublishDialog() {
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Publish</DialogTitle>
+          <DialogTitle className="md:text-2xl">Publish</DialogTitle>
           <DialogDescription />
         </DialogHeader>
 

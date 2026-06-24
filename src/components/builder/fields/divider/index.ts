@@ -18,6 +18,8 @@ export const DividerField: FieldPlugin = {
     };
   },
 
+  createValidator: null,
+
   Form: DividerFieldForm,
   Builder: null,
   Renderer: DividerFieldRenderer,

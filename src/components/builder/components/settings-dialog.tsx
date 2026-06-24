@@ -21,7 +21,7 @@ export default function SettingsDialog() {
       <DialogTrigger render={<Button variant="ghost" />}>
         <Settings /> Settings
       </DialogTrigger>
-      <DialogContent className="sm:max-w-4xl md:p-12">
+      <DialogContent className="sm:max-w-4xl">
         <DialogHeader>
           <DialogTitle className="md:text-2xl">Settings</DialogTitle>
           <DialogDescription className="mb-6 text-muted-foreground"></DialogDescription>

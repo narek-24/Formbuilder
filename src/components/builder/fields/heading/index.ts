@@ -19,6 +19,8 @@ export const HeadingField: FieldPlugin = {
     };
   },
 
+  createValidator: null,
+
   Form: HeadingFieldForm,
   Builder: null,
   Renderer: HeadingFieldRenderer,

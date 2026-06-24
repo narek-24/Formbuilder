@@ -55,7 +55,7 @@ export interface FieldPlugin {
   category: Category;
 
   getDefaultValues: () => FormSchemaField;
-  createValidator?: ((field: FormSchemaField) => z.ZodTypeAny) | null;
+  createValidator: ((field: FormSchemaField) => z.ZodTypeAny) | null;
 
   Form: React.ComponentType<FormProps>;
   Builder: React.ComponentType<BuilderProps> | null;
