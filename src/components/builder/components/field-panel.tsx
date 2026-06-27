@@ -1,3 +1,5 @@
+"use client";
+
 import { fieldRegistry } from "../fields/registry";
 import { useBuilderStore } from "../hooks/use-builder-store";
 
