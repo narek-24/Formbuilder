@@ -7,14 +7,15 @@ import {
 import { Field, FieldError, FieldLabel } from "@/components/ui/field";
 import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { authClient } from "@/server/auth/client";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { useAction } from "next-safe-action/hooks";
-import { registerAction } from "@/server/actions/register";
+import { Loader } from "lucide-react";
 
 export default function RegisterForm() {
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
 
   const form = useForm<RegisterSchemaType>({
     resolver: zodResolver(registerSchema),
@@ -27,37 +28,30 @@ export default function RegisterForm() {
     },
   });
 
-  const { executeAsync, result } = useAction(registerAction, {
-    onExecute: () => {
-      setIsLoading(true);
-    },
-    onSuccess: ({ input }) => {
-      console.log(input);
-      // signIn("credentials", {
-      //   email: input.email,
-      //   password: input.password,
-      //   redirect: false,
-      // })
-      //   .then((res) => {
-      //     if (res?.ok) {
-      //       location.replace("/");
-      //     }
-      //   })
-      //   .catch(() => {
-      //     location.replace("/login");
-      //   })
-      //   .finally(() => {
-      //     setIsLoading(false);
-      //   });
-    },
-    onSettled: () => {
-      setIsLoading(false);
-    },
-  });
-
   async function onSubmit(data: RegisterSchemaType) {
     if (isLoading) return;
-    await executeAsync(data);
+
+    setIsLoading(true);
+    setError("");
+
+    await authClient.signUp.email(
+      {
+        email: data.email,
+        password: data.password,
+        name: data.name,
+      },
+      {
+        onResponse: () => {
+          setIsLoading(false);
+        },
+        onSuccess: () => {
+          location.replace("/");
+        },
+        onError: (ctx) => {
+          setError(ctx.error.message || ctx.error.statusText);
+        },
+      }
+    );
   }
 
   return (
@@ -74,6 +68,7 @@ export default function RegisterForm() {
               {...field}
               aria-invalid={fieldState.invalid}
               required
+              autoComplete="name"
               placeholder="Your name"
             />
             {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
@@ -93,6 +88,7 @@ export default function RegisterForm() {
               required
               {...field}
               aria-invalid={fieldState.invalid}
+              autoComplete="email"
               placeholder="Your email"
             />
             {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
@@ -138,11 +134,10 @@ export default function RegisterForm() {
         )}
       />
 
-      {result.serverError && (
-        <p className="font-semibold text-danger-text">{result.serverError}</p>
-      )}
+      {error && <p className="text-sm font-medium text-danger-text">{error}</p>}
 
       <Button aria-disabled={isLoading} type="submit">
+        {isLoading && <Loader className="animate-spin" />}
         Register
       </Button>
     </form>

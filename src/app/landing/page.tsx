@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import LandingSignInButton from "./_components/sign-in-button";
 import Link from "next/link";
 
 export default function LandingPage() {
@@ -14,14 +15,7 @@ export default function LandingPage() {
             React-Hook-Form, Zustand and Tailwind CSS.
           </p>
           <div className="flex gap-4">
-            {/* <Button
-              variant="secondary"
-              className="group h-12 rounded-full px-6 text-lg"
-              nativeButton={false}
-              render={<Link href="/login" />}
-            >
-              Sign in
-            </Button> */}
+            <LandingSignInButton />
             <Button
               className="group h-12 rounded-full px-6 text-lg"
               nativeButton={false}

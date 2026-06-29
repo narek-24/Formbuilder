@@ -4,9 +4,11 @@ import { loginSchema, type LoginSchemaType } from "@/lib/schemas/auth-schemas";
 import { Field, FieldError, FieldLabel } from "@/components/ui/field";
 import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { authClient } from "@/server/auth/client";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Loader } from "lucide-react";
 
 export default function LoginForm() {
   const [isLoading, setIsLoading] = useState(false);
@@ -23,25 +25,26 @@ export default function LoginForm() {
   async function onSubmit(data: LoginSchemaType) {
     if (isLoading) return;
 
-    console.log(data);
-
     setIsLoading(true);
     setError("");
 
-    // signIn("credentials", { ...data, redirect: false })
-    //   .then((res) => {
-    //     if (res?.ok) {
-    //       location.replace("/");
-    //     } else if (res?.error) {
-    //       setError("Invalid Credentials");
-    //     }
-    //   })
-    //   .catch(() => {
-    //     setError("Something went wrong");
-    //   })
-    //   .finally(() => {
-    //     setIsLoading(false);
-    //   });
+    await authClient.signIn.email(
+      {
+        email: data.email,
+        password: data.password,
+      },
+      {
+        onResponse: () => {
+          setIsLoading(false);
+        },
+        onError: (ctx) => {
+          setError(ctx.error.message || ctx.error.statusText);
+        },
+        onSuccess: () => {
+          location.replace("/");
+        },
+      }
+    );
   }
 
   return (
@@ -55,6 +58,7 @@ export default function LoginForm() {
             <Input
               id="email"
               type="email"
+              autoComplete="email"
               required
               {...field}
               aria-invalid={fieldState.invalid}
@@ -84,9 +88,10 @@ export default function LoginForm() {
         )}
       />
 
-      {error && <p className="font-semibold text-danger-text">{error}</p>}
+      {error && <p className="text-sm font-medium text-danger-text">{error}</p>}
 
       <Button aria-disabled={isLoading} type="submit">
+        {isLoading && <Loader className="animate-spin" />}
         Login
       </Button>
     </form>

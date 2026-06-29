@@ -1,6 +1,6 @@
 ## TODO
 
-- Setup better-auth or next-auth
+- User dropdown
 - DB schemas
 - Drag and drop
 - Help dialog explaining how to use the builder

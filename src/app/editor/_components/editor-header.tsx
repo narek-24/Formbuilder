@@ -10,14 +10,14 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import PublishDialog from "@/components/builder/components/publish-dialog";
-import BackButton from "@/app/(dashboard)/_components/back-button";
+import EditorBackButton from "./editor-back-button";
 
 export default function EditorHeader() {
   return (
     <header className="sticky top-0 left-0 z-50 mb-5 bg-background">
       <div className="container flex h-14 items-center justify-between">
         <div className="flex items-center gap-4">
-          <BackButton />
+          <EditorBackButton />
           <TitleInput />
         </div>
 
