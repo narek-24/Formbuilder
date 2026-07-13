@@ -8,5 +8,5 @@ export default async function Home() {
     throw redirect("/landing");
   }
 
-  return <>TODO: Dashboard page, {JSON.stringify(session)} </>;
+  return <>TODO: Dashboard page</>;
 }

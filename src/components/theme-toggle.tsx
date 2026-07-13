@@ -12,7 +12,12 @@ export default function ThemeToggle() {
   }
 
   return (
-    <Button size="icon" variant="ghost" onClick={toggleTheme}>
+    <Button
+      size="icon"
+      variant="ghost"
+      className="size-10 rounded-full"
+      onClick={toggleTheme}
+    >
       <Sun className="hidden size-5 dark:block" />
       <Moon className="block size-5 dark:hidden" />
       <span className="sr-only">Toggle theme</span>

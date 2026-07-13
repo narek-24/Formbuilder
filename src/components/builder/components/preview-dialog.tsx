@@ -27,7 +27,7 @@ export default function PreviewDialog() {
           </div>
         </DialogHeader>
 
-        <div className="mt-4 w-full">
+        <div className="w-full">
           <Content />
         </div>
       </DialogContent>

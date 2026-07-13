@@ -6,6 +6,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import Link from "next/link";
+import UserDropdown from "./user-dropdown";
 
 export const NAVIGATION = [
   {
@@ -45,7 +46,7 @@ export default function DashboardHeader() {
           </div>
         </div>
 
-        <div className="flex items-center gap-6">
+        <div className="flex items-center gap-3">
           <Button
             render={<Link href="/editor" />}
             nativeButton={false}
@@ -54,7 +55,7 @@ export default function DashboardHeader() {
             <Plus />
             New form
           </Button>
-          <span>User dropdown</span>
+          <UserDropdown />
         </div>
       </div>
     </header>

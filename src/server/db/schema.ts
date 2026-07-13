@@ -1,29 +1,51 @@
 import { relations } from "drizzle-orm";
 import {
   boolean,
-  index,
   pgTable,
   pgTableCreator,
-  text,
   timestamp,
+  index,
+  text,
 } from "drizzle-orm/pg-core";
 
 export const createTable = pgTableCreator((name) => `formbuilder_${name}`);
 
-export const posts = createTable(
-  "post",
+export const forms = createTable("form", (d) => ({
+  id: d.integer().primaryKey().generatedByDefaultAsIdentity(),
+  title: d.varchar({ length: 256 }),
+  description: d.text(),
+  content: d.json(),
+  userId: text("user_id")
+    .notNull()
+    .references(() => user.id, { onDelete: "cascade" }),
+  createdAt: d
+    .timestamp({ withTimezone: true })
+    .$defaultFn(() => new Date())
+    .notNull(),
+  updatedAt: d.timestamp({ withTimezone: true }).$onUpdate(() => new Date()),
+}));
+
+export const responses = createTable(
+  "response",
   (d) => ({
     id: d.integer().primaryKey().generatedByDefaultAsIdentity(),
-    name: d.varchar({ length: 256 }),
-
+    answers: d.json(),
+    formId: d
+      .integer()
+      .notNull()
+      .references(() => forms.id, { onDelete: "cascade" }),
     createdAt: d
       .timestamp({ withTimezone: true })
       .$defaultFn(() => new Date())
       .notNull(),
     updatedAt: d.timestamp({ withTimezone: true }).$onUpdate(() => new Date()),
   }),
-  (t) => [index("name_idx").on(t.name)]
+  (t) => [index("formId_idx").on(t.formId)]
 );
+
+/**
+ * ********** BETTER AUTH *************
+ */
 
 export const user = pgTable("user", {
   id: text("id").primaryKey(),
@@ -85,9 +107,24 @@ export const verification = pgTable("verification", {
   ),
 });
 
+/**
+ * ********** RELATIONS *************
+ */
+
+export const formRelations = relations(forms, ({ one, many }) => ({
+  user: one(user, { fields: [forms.userId], references: [user.id] }),
+  responses: many(responses),
+}));
+
+export const responseRelations = relations(responses, ({ one }) => ({
+  form: one(forms, { fields: [responses.formId], references: [forms.id] }),
+}));
+
 export const userRelations = relations(user, ({ many }) => ({
+  forms: many(forms),
   account: many(account),
   session: many(session),
+  responses: many(responses),
 }));
 
 export const accountRelations = relations(account, ({ one }) => ({
