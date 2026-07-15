@@ -10,8 +10,8 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { useBuilderStore } from "../hooks/use-builder-store";
-import FormRenderer from "../renderer";
+import { useBuilderStore } from "../../hooks/use-builder-store";
+import FormRenderer from "../../renderer";
 
 export default function PreviewDialog() {
   return (

@@ -77,7 +77,12 @@ export default function FieldItem({
           {isConditional && (
             <span className="text-xs text-muted-foreground">Condtional</span>
           )}
-          <ActionsDropdown setMode={setMode} field={field} index={index} />
+          <ActionsDropdown
+            mode={mode}
+            field={field}
+            index={index}
+            setMode={setMode}
+          />
         </div>
       </div>
 
@@ -140,12 +145,14 @@ function MoveButtons({ fieldId }: { fieldId: string }) {
 }
 
 function ActionsDropdown({
-  field,
+  mode,
   index,
+  field,
   setMode,
 }: {
-  field: FormSchemaField;
   index: number;
+  mode: FieldItemMode;
+  field: FormSchemaField;
   setMode: (state: FieldItemMode) => void;
 }) {
   const removeField = useBuilderStore((state) => state.removeField);
@@ -165,6 +172,25 @@ function ActionsDropdown({
   }
 
   const hasFollowUp = !!field.followUps;
+  const isEditingMode = mode === FieldItemMode.Editing;
+  const isConditionalMode = mode === FieldItemMode.Conditional;
+
+  const handleEditToggle = () => {
+    setMode(isEditingMode ? FieldItemMode.Default : FieldItemMode.Editing);
+  };
+
+  const handleLogicToggle = () => {
+    setMode(
+      isConditionalMode ? FieldItemMode.Default : FieldItemMode.Conditional
+    );
+  };
+
+  const editLabel = isEditingMode ? "Cancel Editing" : "Edit Field";
+  const logicLabel = isConditionalMode
+    ? "Cancel Logic"
+    : hasFollowUp
+      ? "Edit Logic"
+      : "Configure Logic";
 
   return (
     <DropdownMenu>
@@ -174,14 +200,14 @@ function ActionsDropdown({
       </DropdownMenuTrigger>
 
       <DropdownMenuContent align="end" className="w-50">
-        <DropdownMenuItem onClick={() => setMode(FieldItemMode.Editing)}>
+        <DropdownMenuItem onClick={handleEditToggle}>
           <Pencil />
-          Edit Field
+          {editLabel}
         </DropdownMenuItem>
 
-        <DropdownMenuItem onClick={() => setMode(FieldItemMode.Conditional)}>
+        <DropdownMenuItem onClick={handleLogicToggle}>
           <GitBranch />
-          {hasFollowUp ? "Edit Logic" : "Configure Logic"}
+          {logicLabel}
         </DropdownMenuItem>
 
         {hasFollowUp && (

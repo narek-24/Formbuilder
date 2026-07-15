@@ -4,7 +4,7 @@ import { useBuilderStore } from "./hooks/use-builder-store";
 import { useMediaQuery } from "@/hooks/use-media-query";
 import { FileText } from "lucide-react";
 import TemplatesDialog from "./components/templates";
-import AddFieldDialog from "./components/add-field";
+import AddFieldDialog from "./components/dialogs/add-field-dialog";
 import FieldPanel from "./components/field-panel";
 import FieldItem from "./components/field-item";
 

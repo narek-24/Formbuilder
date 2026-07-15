@@ -13,7 +13,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Settings } from "lucide-react";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-import { useBuilderStore } from "../hooks/use-builder-store";
+import { useBuilderStore } from "../../hooks/use-builder-store";
 
 export default function SettingsDialog() {
   return (

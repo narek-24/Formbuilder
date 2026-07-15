@@ -1,3 +1,5 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -7,10 +9,10 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { fieldRegistry } from "../fields/registry";
-import { useBuilderStore } from "../hooks/use-builder-store";
+import { type FieldType } from "../../schemas/form-schemas";
+import { useBuilderStore } from "../../hooks/use-builder-store";
+import { fieldRegistry } from "../../fields/registry";
 import { useState } from "react";
-import type { FieldType } from "../schemas/form-schemas";
 
 export default function AddFieldDialog() {
   const [isOpen, setIsOpen] = useState(false);

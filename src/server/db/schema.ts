@@ -10,20 +10,24 @@ import {
 
 export const createTable = pgTableCreator((name) => `formbuilder_${name}`);
 
-export const forms = createTable("form", (d) => ({
-  id: d.integer().primaryKey().generatedByDefaultAsIdentity(),
-  title: d.varchar({ length: 256 }),
-  description: d.text(),
-  content: d.json(),
-  userId: text("user_id")
-    .notNull()
-    .references(() => user.id, { onDelete: "cascade" }),
-  createdAt: d
-    .timestamp({ withTimezone: true })
-    .$defaultFn(() => new Date())
-    .notNull(),
-  updatedAt: d.timestamp({ withTimezone: true }).$onUpdate(() => new Date()),
-}));
+export const forms = createTable(
+  "form",
+  (d) => ({
+    id: d.integer().primaryKey().generatedByDefaultAsIdentity(),
+    title: d.varchar({ length: 256 }),
+    description: d.text(),
+    content: d.json(),
+    userId: text("user_id")
+      .notNull()
+      .references(() => user.id, { onDelete: "cascade" }),
+    createdAt: d
+      .timestamp({ withTimezone: true })
+      .$defaultFn(() => new Date())
+      .notNull(),
+    updatedAt: d.timestamp({ withTimezone: true }).$onUpdate(() => new Date()),
+  }),
+  (t) => [index("userId_idx").on(t.userId)]
+);
 
 export const responses = createTable(
   "response",

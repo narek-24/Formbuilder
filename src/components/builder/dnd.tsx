@@ -72,7 +72,7 @@
 
 //       {categorizedFields.map((category) => (
 //         <div className="mb-6" key={category.label}>
-//           <h3 className="mb-2 text-xs font-medium tracking-wider text-primary-text uppercase">
+//           <h3 className="mb-2 text-xs font-medium tracking-wider uppercase">
 //             {category.label}
 //           </h3>
 

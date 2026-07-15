@@ -1,15 +1,15 @@
 import { EllipsisVertical } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import TitleInput from "./title-input";
-import SettingsDialog from "@/components/builder/components/settings-dialog";
-import PreviewDialog from "@/components/builder/components/preview-dialog";
+import SettingsDialog from "@/components/builder/components/dialogs/settings-dialog";
+import PreviewDialog from "@/components/builder/components/dialogs/preview-dialog";
 import ThemeToggle from "@/components/theme-toggle";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import PublishDialog from "@/components/builder/components/publish-dialog";
+import PublishDialog from "@/components/builder/components/dialogs/publish-dialog";
 import EditorBackButton from "./editor-back-button";
 
 export default function EditorHeader() {
