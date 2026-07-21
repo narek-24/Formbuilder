@@ -6,7 +6,7 @@ export default async function Home() {
 
   return (
     <>
-      <ul className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
+      <ul className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3 xl:gap-8">
         {forms.map((form) => (
           <FormCard key={form.id} form={form} />
         ))}

@@ -1,7 +1,7 @@
-import { Calendar, MessageSquareText, MoreHorizontal } from "lucide-react";
+import { Calendar, MessageSquareText } from "lucide-react";
 import { type getUserForms } from "@/server/queries/forms";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
+import FormCardActions from "./form-card-actions";
 
 interface Props {
   form: Awaited<ReturnType<typeof getUserForms>>[number];
@@ -13,10 +13,7 @@ export default function FormCard({ form }: Props) {
       <div className="flex items-center justify-between gap-1">
         <h2 className="font-semibold">{form.title}</h2>
 
-        <Button size="icon" variant="ghost">
-          {/* Will later be a dropdown */}
-          <MoreHorizontal className="size-5.5" />
-        </Button>
+        <FormCardActions form={form} />
       </div>
 
       <p className="flex items-center gap-1 text-sm text-muted-foreground">
@@ -24,7 +21,7 @@ export default function FormCard({ form }: Props) {
         {form.createdAt.toLocaleDateString()}
       </p>
 
-      <div className="mt-4 flex justify-between border-t pt-4">
+      <div className="mt-6 flex justify-between">
         <Badge
           variant={form.status === "published" ? "success" : "danger"}
           className="capitalize"

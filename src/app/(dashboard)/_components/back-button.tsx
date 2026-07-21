@@ -8,7 +8,12 @@ export default function BackButton() {
   const router = useRouter();
 
   return (
-    <Button variant="ghost" size="icon" onClick={() => router.back()}>
+    <Button
+      size="icon"
+      role="link"
+      variant="ghost"
+      onClick={() => router.back()}
+    >
       <span className="sr-only">Back</span>
       <MoveLeft />
     </Button>

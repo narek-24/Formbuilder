@@ -14,11 +14,6 @@ export const NAVIGATION = [
     label: "Dashboard",
     href: "/",
   },
-  // {
-  //   icon: FileText,
-  //   label: "Forms",
-  //   href: "/",
-  // },
 ] as const;
 
 export default function DashboardHeader() {
@@ -38,7 +33,7 @@ export default function DashboardHeader() {
                 nativeButton={false}
                 variant="ghost"
               >
-                <link.icon /> {link.label}
+                {link.label}
               </Button>
             ))}
           </nav>
