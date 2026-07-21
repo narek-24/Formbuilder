@@ -1,12 +1,13 @@
 import { createSafeActionClient } from "next-safe-action";
+import { db } from "../db";
+import { auth } from "../auth";
+import { headers } from "next/headers";
 
 export class ActionError extends Error {
   constructor(message: string) {
     super(message);
   }
 }
-
-const db = {};
 
 /**
  * Error Handling Strategy:
@@ -34,16 +35,16 @@ export const actionClient = createSafeActionClient({
 });
 
 export const protectedActionClient = actionClient.use(async ({ next, ctx }) => {
-  // const session = await getServerAuthSession();
+  const session = await auth.api.getSession({ headers: await headers() });
 
-  // if (!session?.user) {
-  //   throw new ActionError("You must be signed in to perform this action.");
-  // }
+  if (!session?.user) {
+    throw new ActionError("You must be signed in to perform this action.");
+  }
 
   return next({
     ctx: {
       ...ctx,
-      userId: "session.user.id,",
+      userId: session.user.id,
     },
   });
 });

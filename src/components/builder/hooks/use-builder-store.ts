@@ -25,6 +25,8 @@ interface Store {
   editField: (field: FormSchemaField) => void;
   removeField: (id: string) => void;
   moveField: (id: string, dir: "up" | "down") => void;
+
+  reset: () => void;
 }
 
 export const useBuilderStore = create(
@@ -99,6 +101,10 @@ export const useBuilderStore = create(
 
           return { fields: fields };
         });
+      },
+
+      reset: () => {
+        set(() => ({ settings: { title: "", description: "" }, fields: [] }));
       },
     }),
     {

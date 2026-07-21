@@ -23,7 +23,7 @@ export default function SettingsDialog() {
       </DialogTrigger>
       <DialogContent className="sm:max-w-4xl">
         <DialogHeader>
-          <DialogTitle className="md:text-2xl">Settings</DialogTitle>
+          <DialogTitle>Settings</DialogTitle>
           <DialogDescription className="mb-6 text-muted-foreground"></DialogDescription>
         </DialogHeader>
         <SettingsForm />

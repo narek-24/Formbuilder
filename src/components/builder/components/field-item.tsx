@@ -107,9 +107,7 @@ function Content({
   const views = {
     [FieldItemMode.Default]: Builder ? <Builder field={field} /> : null,
 
-    [FieldItemMode.Editing]: Form ? (
-      <Form field={field} setToDefault={setToDefault} />
-    ) : null,
+    [FieldItemMode.Editing]: <Form field={field} setToDefault={setToDefault} />,
 
     [FieldItemMode.Conditional]: (
       <ConditionalForm field={field} setToDefault={setToDefault} />

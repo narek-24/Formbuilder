@@ -56,7 +56,7 @@
   --danger-hover: hsl(359, 80%, 57%);
   --danger-foreground: hsl(0, 0%, 100%);
 
-  --border: hsla(0, 0%, 100%, 4%);
+  --border: hsla(0, 0%, 100%, 3%);
 }
 
 @theme inline {

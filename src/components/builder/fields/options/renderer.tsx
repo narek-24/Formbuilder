@@ -62,7 +62,7 @@ export default function OptionsFieldRenderer({
               id={`renderer-${formField.id}`}
               value={String(field.value ?? "")}
               onValueChange={field.onChange}
-              className="mt-2 flex flex-col space-y-1"
+              className="mt-2 flex flex-col"
             >
               {formField.options.map((option) => (
                 <label

@@ -7,11 +7,12 @@ import Link from "next/link";
 export default function LandingSignInButton() {
   const { data } = authClient.useSession();
 
-  if (!data?.session) {
+  if (!data) {
     return (
       <Button
+        size="lg"
         variant="secondary"
-        className="group h-12 rounded-full px-6 text-lg"
+        className="rounded-full"
         nativeButton={false}
         render={<Link href="/login" />}
       >
@@ -22,8 +23,9 @@ export default function LandingSignInButton() {
 
   return (
     <Button
+      size="lg"
       variant="secondary"
-      className="group h-12 rounded-full px-6 text-lg"
+      className="rounded-full"
       nativeButton={false}
       render={<Link href="/" />}
     >

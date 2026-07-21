@@ -17,7 +17,8 @@ export default function LandingPage() {
           <div className="flex gap-4">
             <LandingSignInButton />
             <Button
-              className="group h-12 rounded-full px-6 text-lg"
+              size="lg"
+              className="rounded-full"
               nativeButton={false}
               render={<Link href="/editor" />}
             >

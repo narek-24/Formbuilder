@@ -14,9 +14,9 @@ export const forms = createTable(
   "form",
   (d) => ({
     id: d.integer().primaryKey().generatedByDefaultAsIdentity(),
-    title: d.varchar({ length: 256 }),
-    description: d.text(),
-    content: d.json(),
+    title: d.text("title").notNull(),
+    content: d.json().notNull(),
+    description: d.text("description"),
     userId: text("user_id")
       .notNull()
       .references(() => user.id, { onDelete: "cascade" }),
@@ -33,7 +33,7 @@ export const responses = createTable(
   "response",
   (d) => ({
     id: d.integer().primaryKey().generatedByDefaultAsIdentity(),
-    answers: d.json(),
+    answers: d.json().notNull(),
     formId: d
       .integer()
       .notNull()

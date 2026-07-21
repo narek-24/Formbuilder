@@ -8,7 +8,7 @@ import { authClient } from "@/server/auth/client";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Loader } from "lucide-react";
+import { Loader2 } from "lucide-react";
 
 export default function LoginForm() {
   const [isLoading, setIsLoading] = useState(false);
@@ -91,7 +91,7 @@ export default function LoginForm() {
       {error && <p className="text-sm font-medium text-danger-text">{error}</p>}
 
       <Button aria-disabled={isLoading} type="submit">
-        {isLoading && <Loader className="animate-spin" />}
+        {isLoading && <Loader2 className="animate-spin" />}
         Login
       </Button>
     </form>
