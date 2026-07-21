@@ -5,10 +5,13 @@ import {
   pgTableCreator,
   timestamp,
   index,
+  pgEnum,
   text,
 } from "drizzle-orm/pg-core";
 
 export const createTable = pgTableCreator((name) => `formbuilder_${name}`);
+
+export const formStatus = pgEnum("form_status", ["published", "cancelled"]);
 
 export const forms = createTable(
   "form",
@@ -17,6 +20,9 @@ export const forms = createTable(
     title: d.text("title").notNull(),
     content: d.json().notNull(),
     description: d.text("description"),
+    status: formStatus("status")
+      .notNull()
+      .$defaultFn(() => "published"),
     userId: text("user_id")
       .notNull()
       .references(() => user.id, { onDelete: "cascade" }),

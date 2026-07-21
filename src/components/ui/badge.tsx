@@ -13,7 +13,7 @@ const badgeVariants = cva(
         warning: "bg-amber-500/8 text-amber-900 dark:text-amber-200",
       },
       size: {
-        default: "px-3 py-0.75",
+        default: "px-3 py-1",
         lg: "px-4 py-2 text-sm",
       },
     },

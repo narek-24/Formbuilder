@@ -2,6 +2,7 @@
 
 import z from "zod";
 import { protectedActionClient } from "./action-client";
+import { revalidatePath } from "next/cache";
 import { forms } from "../db/schema";
 
 const createFromSchema = z.object({
@@ -19,4 +20,6 @@ export const createFormAction = protectedActionClient
       content: parsedInput.content,
       description: parsedInput.description,
     });
+
+    revalidatePath("/");
   });

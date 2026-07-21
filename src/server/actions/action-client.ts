@@ -1,7 +1,6 @@
 import { createSafeActionClient } from "next-safe-action";
+import { getServerSession } from "../auth/config";
 import { db } from "../db";
-import { auth } from "../auth";
-import { headers } from "next/headers";
 
 export class ActionError extends Error {
   constructor(message: string) {
@@ -35,7 +34,7 @@ export const actionClient = createSafeActionClient({
 });
 
 export const protectedActionClient = actionClient.use(async ({ next, ctx }) => {
-  const session = await auth.api.getSession({ headers: await headers() });
+  const session = await getServerSession();
 
   if (!session?.user) {
     throw new ActionError("You must be signed in to perform this action.");

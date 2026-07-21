@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { FileText, LayoutDashboard, Menu, Plus } from "lucide-react";
+import { LayoutDashboard, Menu, Plus } from "lucide-react";
 import {
   Popover,
   PopoverContent,
@@ -14,11 +14,11 @@ export const NAVIGATION = [
     label: "Dashboard",
     href: "/",
   },
-  {
-    icon: FileText,
-    label: "Forms",
-    href: "/",
-  },
+  // {
+  //   icon: FileText,
+  //   label: "Forms",
+  //   href: "/",
+  // },
 ] as const;
 
 export default function DashboardHeader() {
@@ -26,7 +26,9 @@ export default function DashboardHeader() {
     <header className="sticky top-0 left-0 z-50 mb-5 bg-background">
       <div className="container flex h-14 items-center justify-between">
         <div className="flex flex-row-reverse items-center gap-3 md:flex-row md:gap-8">
-          <span className="text-lg font-extrabold">FormBuilder</span>
+          <Link href="/" className="text-lg font-extrabold">
+            FormBuilder
+          </Link>
 
           <nav className="flex items-center gap-1 max-md:hidden">
             {NAVIGATION.map((link) => (

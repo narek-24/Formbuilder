@@ -19,7 +19,7 @@ export default function TemplatesContent({
   }
 
   return (
-    <ul className="grid gap-4 sm:grid-cols-2 md:grid-cols-3">
+    <ul className="grid gap-2 sm:grid-cols-2 md:grid-cols-3">
       {TEMPLATES.map((t, i) => (
         <li key={i}>
           <Button
