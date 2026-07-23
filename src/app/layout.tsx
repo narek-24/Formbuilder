@@ -37,7 +37,6 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
     >
       <body>
         <ThemeProvider
-          enableSystem
           attribute="class"
           defaultTheme="system"
           disableTransitionOnChange

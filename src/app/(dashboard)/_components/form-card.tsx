@@ -1,10 +1,10 @@
 import { Calendar, MessageSquareText } from "lucide-react";
-import { type getUserForms } from "@/server/queries/forms";
+import { type GetUserForms } from "@/server/queries/forms";
 import { Badge } from "@/components/ui/badge";
 import FormCardActions from "./form-card-actions";
 
 interface Props {
-  form: Awaited<ReturnType<typeof getUserForms>>[number];
+  form: GetUserForms[number];
 }
 
 export default function FormCard({ form }: Props) {
@@ -13,7 +13,7 @@ export default function FormCard({ form }: Props) {
       <div className="flex items-center justify-between gap-1">
         <h2 className="font-semibold">{form.title}</h2>
 
-        <FormCardActions form={form} />
+        <FormCardActions id={form.id} status={form.status} />
       </div>
 
       <p className="flex items-center gap-1 text-sm text-muted-foreground">

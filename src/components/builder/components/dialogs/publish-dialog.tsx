@@ -19,6 +19,7 @@ import { authClient } from "@/server/auth/client";
 import { useAction } from "next-safe-action/hooks";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
 export default function PublishDialog() {
   const [isOpen, setIsOpen] = useState(false);
@@ -88,7 +89,7 @@ function Content() {
       onSuccess: () => {
         setTimeout(() => {
           reset();
-        }, 2000);
+        }, 1000);
         router.push("/");
       },
     }
@@ -127,23 +128,25 @@ function Content() {
       </div>
 
       {(!canPublish || hasErrored) && (
-        <ul className="rounded-lg border-2 border-danger/15 bg-danger/5 p-4 text-sm text-danger-text">
-          {!hasFields && (
-            <li>&#x2022; Add at least one field to publish your form.</li>
-          )}
-          {!hasTitle && (
-            <li>
-              &#x2022; Add a title in settings to make your form easy to
-              identify.
-            </li>
-          )}
+        <Alert variant="danger">
+          <AlertTitle>{result.serverError}</AlertTitle>
+          <AlertDescription>
+            {!hasFields && (
+              <p>&#x2022; Add at least one field to publish your form.</p>
+            )}
 
-          {result.serverError}
-        </ul>
+            {!hasTitle && (
+              <p>
+                &#x2022; Add a title in settings to make your form easy to
+                identify.
+              </p>
+            )}
+          </AlertDescription>
+        </Alert>
       )}
 
       <DialogFooter>
-        <Button disabled={!canPublish || isPending} onClick={handlePublish}>
+        <Button disabled={!canPublish} onClick={handlePublish}>
           {isPending && <Loader2 className="animate-spin" />} Publish
         </Button>
         <DialogClose render={<Button variant="secondary" />}>

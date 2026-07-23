@@ -1,7 +1,6 @@
 ## TODO
 
-- Delete and cancel forms with alert dialogs in actions-dropdown
-- Share form with react-share and link copy with toast message
+- Share form link copy with toast message
 - Respond to form, maybe rate limit by ip and user-agent
 - Csv download responses, async toast
 

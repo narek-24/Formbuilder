@@ -24,9 +24,9 @@
   --muted-hover: hsla(240, 30%, 20%, 8%);
   --muted-foreground: hsl(0, 0%, 35%);
 
-  --danger: hsl(350, 70%, 45%);
-  --danger-text: hsl(350, 75%, 25%);
-  --danger-hover: hsl(350, 70%, 55%);
+  --danger: hsl(358, 60%, 42%);
+  --danger-text: hsl(358, 75%, 25%);
+  --danger-hover: hsl(358, 60%, 35%);
   --danger-foreground: hsl(0, 0%, 100%);
 
   --border: hsl(0, 0%, 0%, 4%);
@@ -51,9 +51,9 @@
   --muted-hover: hsl(240, 12%, 70%, 15%);
   --muted-foreground: hsl(240, 7%, 60%);
 
-  --danger: hsl(359, 80%, 62%);
+  --danger: hsl(359, 60%, 50%);
   --danger-text: hsl(359, 90%, 70%);
-  --danger-hover: hsl(359, 80%, 57%);
+  --danger-hover: hsl(359, 60%, 44%);
   --danger-foreground: hsl(0, 0%, 100%);
 
   --border: hsla(0, 0%, 100%, 3%);

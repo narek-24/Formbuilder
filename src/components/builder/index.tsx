@@ -24,8 +24,8 @@ function FieldsList() {
   if (fields.length === 0) {
     return (
       <div className="mx-auto max-w-2xl pt-14 text-center">
-        <div className="mx-auto mb-6 flex size-20 items-center justify-center rounded-full border bg-muted">
-          <FileText className="size-9 text-muted-foreground" />
+        <div className="mx-auto mb-6 flex size-18 items-center justify-center rounded-full border bg-muted">
+          <FileText className="size-8.5 text-muted-foreground" />
         </div>
 
         <h3 className="text-xl font-semibold tracking-tight">

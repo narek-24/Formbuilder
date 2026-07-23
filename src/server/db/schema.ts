@@ -11,7 +11,8 @@ import {
 
 export const createTable = pgTableCreator((name) => `formbuilder_${name}`);
 
-export const formStatus = pgEnum("form_status", ["published", "cancelled"]);
+export const formStatusEnum = pgEnum("form_status", ["published", "cancelled"]);
+export type FormStatusEnum = (typeof formStatusEnum.enumValues)[number];
 
 export const forms = createTable(
   "form",
@@ -20,7 +21,7 @@ export const forms = createTable(
     title: d.text("title").notNull(),
     content: d.json().notNull(),
     description: d.text("description"),
-    status: formStatus("status")
+    status: formStatusEnum("status")
       .notNull()
       .$defaultFn(() => "published"),
     userId: text("user_id")

@@ -5,6 +5,8 @@ import { redirect } from "next/navigation";
 import { eq, sql } from "drizzle-orm";
 import { db } from "../db";
 
+export type GetUserForms = Awaited<ReturnType<typeof getUserForms>>;
+
 export async function getUserForms() {
   const session = await getServerSession();
 
