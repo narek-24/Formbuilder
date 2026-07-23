@@ -57,7 +57,7 @@ const cancelFormSchema = z.object({
   id: z.number(),
 });
 
-export const cancelFormAction = protectedActionClient
+export const toggleFormStatusAction = protectedActionClient
   .inputSchema(cancelFormSchema)
   .action(async ({ parsedInput, ctx }) => {
     const form = await ctx.db.query.forms.findFirst({
@@ -68,17 +68,13 @@ export const cancelFormAction = protectedActionClient
       throw new ActionError("Form doesn't exist!");
     }
 
-    if (form.status === "cancelled") {
-      throw new ActionError("Form is already cancelled!");
-    }
-
     if (form.userId !== ctx.userId) {
       throw new ActionError("You are not authorized to cancel this form!");
     }
 
     await ctx.db
       .update(forms)
-      .set({ status: "cancelled" })
+      .set({ status: form.status === "cancelled" ? "published" : "cancelled" })
       .where(eq(forms.id, parsedInput.id));
 
     revalidatePath("/");

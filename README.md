@@ -1,6 +1,5 @@
 ## TODO
 
-- Share form link copy with toast message
 - Respond to form, maybe rate limit by ip and user-agent
 - Csv download responses, async toast
 

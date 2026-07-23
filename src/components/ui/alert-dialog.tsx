@@ -130,7 +130,6 @@ function AlertDialogAction({
   return (
     <Button
       data-slot="alert-dialog-action"
-      variant="danger"
       className={cn(className)}
       {...props}
     />

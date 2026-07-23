@@ -32,11 +32,15 @@ import {
   Share2,
   Trash2,
 } from "lucide-react";
-import { cancelFormAction, deleteFormAction } from "@/server/actions/forms";
+import {
+  toggleFormStatusAction,
+  deleteFormAction,
+} from "@/server/actions/forms";
 import { Alert, AlertTitle } from "@/components/ui/alert";
 import { useAction } from "next-safe-action/hooks";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
+import { Toast } from "@base-ui/react";
 
 interface Props {
   id: number;
@@ -45,7 +49,7 @@ interface Props {
 
 export default function FormCardActions({ id, status }: Props) {
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
-  const [isCancelOpen, setIsCancelOpen] = useState(false);
+  const [isPublishOpen, setIsPublishOpen] = useState(false);
 
   return (
     <>
@@ -65,23 +69,16 @@ export default function FormCardActions({ id, status }: Props) {
 
               <DropdownMenuPortal>
                 <DropdownMenuSubContent className="w-44">
-                  <DropdownMenuItem>Facebook</DropdownMenuItem>
-                  <DropdownMenuItem>X (Twitter)</DropdownMenuItem>
-                  <DropdownMenuItem>
-                    <Copy className="mr-2 h-4 w-4" />
-                    Copy Link
-                  </DropdownMenuItem>
+                  <CopyLinkMenuItem id={id} />
                 </DropdownMenuSubContent>
               </DropdownMenuPortal>
             </DropdownMenuSub>
           )}
 
-          {status === "published" && (
-            <DropdownMenuItem onClick={() => setIsCancelOpen(true)}>
-              <Globe className="mr-2 h-4 w-4" />
-              Unpublish Form
-            </DropdownMenuItem>
-          )}
+          <DropdownMenuItem onClick={() => setIsPublishOpen(true)}>
+            <Globe className="mr-2 h-4 w-4" />
+            {status === "published" ? "Unpublish" : "Publish"} Form
+          </DropdownMenuItem>
 
           <DropdownMenuItem>
             <Download className="mr-2 h-4 w-4" />
@@ -106,12 +103,44 @@ export default function FormCardActions({ id, status }: Props) {
         </AlertDialogContent>
       </AlertDialog>
 
-      <AlertDialog open={isCancelOpen} onOpenChange={setIsCancelOpen}>
+      <AlertDialog open={isPublishOpen} onOpenChange={setIsPublishOpen}>
         <AlertDialogContent>
-          <CencelFormDialogContent id={id} setIsOpen={setIsCancelOpen} />
+          <PublishFormDialogContent
+            id={id}
+            status={status}
+            setIsOpen={setIsPublishOpen}
+          />
         </AlertDialogContent>
       </AlertDialog>
     </>
+  );
+}
+
+function CopyLinkMenuItem({ id }: { id: number }) {
+  const toastManager = Toast.useToastManager();
+
+  async function handleClick() {
+    const formUrl = `${window.location.origin}/form/${id}`;
+
+    try {
+      await navigator.clipboard.writeText(formUrl);
+      toastManager.add({
+        title: "Link copied",
+        description: "The form link has been copied to your clipboard.",
+      });
+    } catch (_) {
+      toastManager.add({
+        title: "Copy failed",
+        description: "Unable to copy the form link. Please try again.",
+      });
+    }
+  }
+
+  return (
+    <DropdownMenuItem onClick={handleClick}>
+      <Copy className="mr-2 h-4 w-4" />
+      Copy Link
+    </DropdownMenuItem>
   );
 }
 
@@ -142,7 +171,7 @@ function DeleteFormDialogContent({ id }: { id: number }) {
       )}
 
       <AlertDialogFooter>
-        <AlertDialogAction onClick={handleClick}>
+        <AlertDialogAction variant="danger" onClick={handleClick}>
           {isPending && <Loader2 className="animate-spin" />}
           Delete
         </AlertDialogAction>
@@ -152,14 +181,16 @@ function DeleteFormDialogContent({ id }: { id: number }) {
   );
 }
 
-function CencelFormDialogContent({
+function PublishFormDialogContent({
   id,
+  status,
   setIsOpen,
 }: {
   id: number;
+  status: FormStatusEnum;
   setIsOpen: (v: boolean) => void;
 }) {
-  const { execute, isPending, result } = useAction(cancelFormAction, {
+  const { execute, isPending, result } = useAction(toggleFormStatusAction, {
     onSuccess: () => {
       setIsOpen(false);
     },
@@ -171,13 +202,16 @@ function CencelFormDialogContent({
     execute({ id });
   }
 
+  const isPublished = status === "published";
+
   return (
     <>
       <AlertDialogHeader>
         <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
         <AlertDialogDescription>
-          This will unpublish the form and you will not be able to collect
-          responses any more.
+          {isPublished
+            ? "This will unpublish the form and you will not be able to collect reponses any more."
+            : "This will publish the form and you can now share it again to collect reponses."}
         </AlertDialogDescription>
       </AlertDialogHeader>
 
@@ -189,9 +223,12 @@ function CencelFormDialogContent({
       )}
 
       <AlertDialogFooter>
-        <AlertDialogAction onClick={handleClick}>
+        <AlertDialogAction
+          variant={isPublished ? "danger" : "default"}
+          onClick={handleClick}
+        >
           {isPending && <Loader2 className="animate-spin" />}
-          Unpublish
+          {isPublished ? "Unpublish" : "Publish"}
         </AlertDialogAction>
         <AlertDialogCancel>Cancel</AlertDialogCancel>
       </AlertDialogFooter>
