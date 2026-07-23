@@ -4,6 +4,7 @@ import { forms, responses } from "../db/schema";
 import { redirect } from "next/navigation";
 import { eq, sql } from "drizzle-orm";
 import { db } from "../db";
+import { cache } from "react";
 
 export type GetUserForms = Awaited<ReturnType<typeof getUserForms>>;
 
@@ -27,3 +28,7 @@ export async function getUserForms() {
     .where(eq(forms.userId, session.user.id))
     .groupBy(forms.id);
 }
+
+export const getFormById = cache(async (id: number) => {
+  return await db.query.forms.findFirst({ where: eq(forms.id, id) });
+});

@@ -127,6 +127,7 @@ function CopyLinkMenuItem({ id }: { id: number }) {
       toastManager.add({
         title: "Link copied",
         description: "The form link has been copied to your clipboard.",
+        timeout: 2000,
       });
     } catch (_) {
       toastManager.add({

@@ -23,7 +23,7 @@ export default function FormCard({ form }: Props) {
 
       <div className="mt-6 flex justify-between">
         <Badge
-          variant={form.status === "published" ? "success" : "danger"}
+          variant={form.status === "published" ? "success" : "muted"}
           className="capitalize"
         >
           {form.status}

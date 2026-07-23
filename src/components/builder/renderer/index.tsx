@@ -7,13 +7,19 @@ import { fieldRegistry } from "../fields/registry";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
+import { Loader2 } from "lucide-react";
+import { Alert, AlertTitle } from "@/components/ui/alert";
 
 export default function FormRenderer({
   fields,
   onSubmit,
+  isSubmitting = false,
+  error,
 }: {
   fields: FormSchema;
   onSubmit: (data: unknown) => void;
+  isSubmitting?: boolean;
+  error?: string;
 }) {
   const { schema, defaultValues } = useMemo(
     () => createValidationSchema(fields),
@@ -47,23 +53,27 @@ export default function FormRenderer({
   }
 
   return (
-    <div>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="mx-auto grid h-fit max-w-lg gap-8"
-      >
-        {fields.map((formField) => {
-          if (!isVisible(formField, watchedValues)) return null;
+    <form
+      onSubmit={form.handleSubmit(onSubmit)}
+      className="mx-auto grid h-fit max-w-lg gap-8"
+    >
+      {fields.map((formField) => {
+        if (!isVisible(formField, watchedValues)) return null;
 
-          const Comp = fieldRegistry.get(formField.type).Renderer;
-          return <Comp key={formField.id} formField={formField} form={form} />;
-        })}
+        const Comp = fieldRegistry.get(formField.type).Renderer;
+        return <Comp key={formField.id} formField={formField} form={form} />;
+      })}
 
-        <Button type="submit" className="w-fit">
-          Submit
-        </Button>
-      </form>
-    </div>
+      {error && (
+        <Alert variant="danger">
+          <AlertTitle>{error}</AlertTitle>
+        </Alert>
+      )}
+
+      <Button aria-disabled={isSubmitting} type="submit" className="w-fit">
+        {isSubmitting && <Loader2 className="animate-spin" />} Submit
+      </Button>
+    </form>
   );
 }
 
