@@ -1,7 +1,5 @@
 ## TODO
 
-- Csv download responses, async toast
-
 - Drag and drop
 - More field types (email, url, checkbox, date, time, rating scale, paragraph)
 - Improvements for conditional logic, more operators (eq, contains, gte, lte), non empty.
@@ -10,3 +8,4 @@
 - Add theme toggle to user dropdown, replace theme-toggle in editor with dropdown if signed in.
 - Rate limit responses, by ip and user-agent maybe
 - Better error handling (global-error) and better fallback UI
+- Tests for CSV utils

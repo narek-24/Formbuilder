@@ -2,7 +2,7 @@
 
 import FormRenderer from "@/components/builder/renderer";
 import { type FormSchema } from "@/components/builder/schemas/form-schemas";
-import { respondToFormAction } from "@/server/actions/forms";
+import { respondToFormAction } from "@/server/actions/responses";
 import { useAction } from "next-safe-action/hooks";
 import { useRouter } from "next/navigation";
 

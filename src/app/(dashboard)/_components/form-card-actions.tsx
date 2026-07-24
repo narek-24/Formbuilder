@@ -41,6 +41,8 @@ import { useAction } from "next-safe-action/hooks";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Toast } from "@base-ui/react";
+import type { GetResponsesType } from "@/app/api/responses/[id]/route";
+import { createCSVFile, downLoadCSVFile } from "@/lib/utils/csv";
 
 interface Props {
   id: number;
@@ -80,10 +82,7 @@ export default function FormCardActions({ id, status }: Props) {
             {status === "published" ? "Unpublish" : "Publish"} Form
           </DropdownMenuItem>
 
-          <DropdownMenuItem>
-            <Download className="mr-2 h-4 w-4" />
-            Export Responses (CSV)
-          </DropdownMenuItem>
+          <ExportCSVMenuItem id={id} />
 
           <DropdownMenuSeparator />
 
@@ -141,6 +140,33 @@ function CopyLinkMenuItem({ id }: { id: number }) {
     <DropdownMenuItem onClick={handleClick}>
       <Copy className="mr-2 h-4 w-4" />
       Copy Link
+    </DropdownMenuItem>
+  );
+}
+
+function ExportCSVMenuItem({ id }: { id: number }) {
+  const toastManager = Toast.useToastManager();
+
+  async function handleCSVDownload() {
+    const res = await fetch(`/api/responses/${id}`, { cache: "no-cache" });
+    const data = (await res.json()) as GetResponsesType;
+
+    const csv = createCSVFile(data);
+    downLoadCSVFile(csv, data.fileName);
+  }
+
+  function handleClick() {
+    toastManager.promise(handleCSVDownload(), {
+      loading: "Proccessing data...",
+      success: "Success, CSV file is downloaded",
+      error: "Something went wrong, cannot export CSV",
+    });
+  }
+
+  return (
+    <DropdownMenuItem onClick={handleClick}>
+      <Download className="mr-2 h-4 w-4" />
+      Export Responses (CSV)
     </DropdownMenuItem>
   );
 }
