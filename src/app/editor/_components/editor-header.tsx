@@ -3,14 +3,14 @@ import { Button } from "@/components/ui/button";
 import TitleInput from "./title-input";
 import SettingsDialog from "@/components/builder/components/dialogs/settings-dialog";
 import PreviewDialog from "@/components/builder/components/dialogs/preview-dialog";
-import ThemeToggle from "@/components/theme-toggle";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import PublishDialog from "@/components/builder/components/dialogs/publish-dialog";
 import EditorBackButton from "./editor-back-button";
+import PublishDialog from "@/components/builder/components/dialogs/publish-dialog";
+import UserDropdown from "@/app/(dashboard)/_components/user-dropdown";
 
 export default function EditorHeader() {
   return (
@@ -27,7 +27,7 @@ export default function EditorHeader() {
           <SettingsDialog />
           <PreviewDialog />
           <PublishDialog />
-          <ThemeToggle />
+          <UserDropdown />
         </div>
 
         <div className="flex items-center gap-1 md:hidden md:gap-3">
@@ -43,7 +43,7 @@ export default function EditorHeader() {
             </PopoverContent>
           </Popover>
 
-          <ThemeToggle />
+          <UserDropdown />
         </div>
       </div>
     </header>

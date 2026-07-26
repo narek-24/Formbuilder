@@ -47,9 +47,10 @@ import { createCSVFile, downLoadCSVFile } from "@/lib/utils/csv";
 interface Props {
   id: number;
   status: FormStatusEnum;
+  hasReponses: boolean;
 }
 
-export default function FormCardActions({ id, status }: Props) {
+export default function FormCardActions({ id, status, hasReponses }: Props) {
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
   const [isPublishOpen, setIsPublishOpen] = useState(false);
 
@@ -82,7 +83,7 @@ export default function FormCardActions({ id, status }: Props) {
             {status === "published" ? "Unpublish" : "Publish"} Form
           </DropdownMenuItem>
 
-          <ExportCSVMenuItem id={id} />
+          {hasReponses && <ExportCSVMenuItem id={id} />}
 
           <DropdownMenuSeparator />
 
@@ -149,6 +150,8 @@ function ExportCSVMenuItem({ id }: { id: number }) {
 
   async function handleCSVDownload() {
     const res = await fetch(`/api/responses/${id}`, { cache: "no-cache" });
+    if (!res.ok) throw new Error("Something went wrong");
+
     const data = (await res.json()) as GetResponsesType;
 
     const csv = createCSVFile(data);

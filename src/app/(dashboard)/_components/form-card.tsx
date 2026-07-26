@@ -1,6 +1,5 @@
 import { Calendar, MessageSquareText } from "lucide-react";
 import { type GetUserForms } from "@/server/queries/forms";
-import { Badge } from "@/components/ui/badge";
 import FormCardActions from "./form-card-actions";
 
 interface Props {
@@ -8,12 +7,18 @@ interface Props {
 }
 
 export default function FormCard({ form }: Props) {
+  const hasReponses = form.responsesCount > 0;
+
   return (
     <div className="card py-4 pr-5 pl-6">
       <div className="flex items-center justify-between gap-1">
         <h2 className="font-semibold">{form.title}</h2>
 
-        <FormCardActions id={form.id} status={form.status} />
+        <FormCardActions
+          id={form.id}
+          status={form.status}
+          hasReponses={hasReponses}
+        />
       </div>
 
       <p className="flex items-center gap-1 text-sm text-muted-foreground">
@@ -22,12 +27,7 @@ export default function FormCard({ form }: Props) {
       </p>
 
       <div className="mt-6 flex justify-between">
-        <Badge
-          variant={form.status === "published" ? "success" : "muted"}
-          className="capitalize"
-        >
-          {form.status}
-        </Badge>
+        <span className="text-sm font-medium capitalize">{form.status}</span>
 
         <p
           title={`${form.responsesCount} responses`}

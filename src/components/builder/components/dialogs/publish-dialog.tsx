@@ -83,17 +83,14 @@ function Content() {
   const hasFields = fields.length > 0;
   const canPublish = hasFields && hasTitle;
 
-  const { execute, hasErrored, result, isPending } = useAction(
-    createFormAction,
-    {
-      onSuccess: () => {
-        setTimeout(() => {
-          reset();
-        }, 1000);
-        router.push("/");
-      },
-    }
-  );
+  const { execute, hasErrored, isPending } = useAction(createFormAction, {
+    onSuccess: () => {
+      setTimeout(() => {
+        reset();
+      }, 1000);
+      router.push("/");
+    },
+  });
 
   function handlePublish() {
     if (!canPublish || isPending) return;
@@ -127,21 +124,20 @@ function Content() {
         <p className="text-sm">{settings.description || "No description"}</p>
       </div>
 
-      {(!canPublish || hasErrored) && (
+      {!canPublish && (
         <Alert variant="danger">
-          <AlertTitle>{result.serverError}</AlertTitle>
           <AlertDescription>
-            {!hasFields && (
-              <p>&#x2022; Add at least one field to publish your form.</p>
-            )}
-
-            {!hasTitle && (
-              <p>
-                &#x2022; Add a title in settings to make your form easy to
-                identify.
-              </p>
-            )}
+            {!hasFields && <p>Add at least one field to publish your form.</p>}
+            {!hasTitle && <p>Please add a title to your form.</p>}
           </AlertDescription>
+        </Alert>
+      )}
+
+      {hasErrored && (
+        <Alert variant="danger">
+          <AlertTitle>
+            Sorry, we were unable to publish your form. Please try again
+          </AlertTitle>
         </Alert>
       )}
 

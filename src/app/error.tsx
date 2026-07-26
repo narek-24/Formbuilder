@@ -11,10 +11,10 @@ export default function ErrorPage({
   unstable_retry: () => void;
 }) {
   return (
-    <div className="flex min-h-[calc(100vh-8rem)] items-center justify-center px-6">
+    <div className="flex min-h-[calc(100vh-4rem)] items-center justify-center px-6">
       <div className="max-w-md text-center">
-        <div className="bg-destructive/10 text-destructive mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full">
-          <AlertTriangle className="h-8 w-8" />
+        <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-danger/10 text-danger-text">
+          <AlertTriangle className="size-8" />
         </div>
 
         <h1 className="text-2xl font-semibold tracking-tight">
@@ -26,7 +26,7 @@ export default function ErrorPage({
         </p>
 
         <Button onClick={unstable_retry} className="mt-8">
-          <RefreshCw className="mr-2 h-4 w-4" />
+          <RefreshCw className="mr-2 size-4" />
           Try again
         </Button>
 

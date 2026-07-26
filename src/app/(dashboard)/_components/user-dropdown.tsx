@@ -5,32 +5,31 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuPortal,
   DropdownMenuSeparator,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown";
-import { LogOut, UserCircle2 } from "lucide-react";
+import { Laptop, LogOut, Moon, Palette, Sun, UserCircle2 } from "lucide-react";
 import { authClient } from "@/server/auth/client";
-import { useState } from "react";
+import { useTheme } from "next-themes";
 
 export default function UserDropdown() {
-  const { data } = authClient.useSession();
-  const [isSigningOut, setIsSigningOut] = useState(false);
+  const { data, isPending } = authClient.useSession();
 
-  if (!data) {
+  if (isPending) {
     return (
       <div className="flex size-10 items-center justify-center rounded-full bg-muted" />
     );
   }
 
-  async function handleSignOut() {
-    if (isSigningOut) return;
+  if (!data) return <ThemeToggle />;
 
-    try {
-      await authClient.signOut();
-      location.replace("/landing");
-    } catch {
-      setIsSigningOut(false);
-    }
+  async function handleSignOut() {
+    await authClient.signOut();
+    location.replace("/landing");
   }
 
   const displayName = data.user.name || data.user.email || "Account";
@@ -62,17 +61,59 @@ export default function UserDropdown() {
         </div>
 
         <DropdownMenuSeparator />
+        <ThemeSubmenu />
 
-        <DropdownMenuItem
-          // variant="danger"
-          className="justify-start"
-          onClick={handleSignOut}
-          disabled={isSigningOut}
-        >
+        <DropdownMenuItem className="justify-start" onClick={handleSignOut}>
           <LogOut className="size-4" />
           Sign out
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
+  );
+}
+
+function ThemeSubmenu() {
+  const { setTheme } = useTheme();
+
+  return (
+    <DropdownMenuSub>
+      <DropdownMenuSubTrigger>
+        <Palette /> Theme
+      </DropdownMenuSubTrigger>
+      <DropdownMenuPortal>
+        <DropdownMenuSubContent className="w-36">
+          <DropdownMenuItem onClick={() => setTheme("light")}>
+            <Sun /> Light
+          </DropdownMenuItem>
+          <DropdownMenuItem onClick={() => setTheme("dark")}>
+            <Moon /> Dark
+          </DropdownMenuItem>
+          <DropdownMenuItem onClick={() => setTheme("system")}>
+            <Laptop /> Sytem
+          </DropdownMenuItem>
+        </DropdownMenuSubContent>
+      </DropdownMenuPortal>
+    </DropdownMenuSub>
+  );
+}
+
+function ThemeToggle() {
+  const { setTheme, resolvedTheme } = useTheme();
+
+  function toggleTheme() {
+    setTheme(resolvedTheme !== "dark" ? "dark" : "light");
+  }
+
+  return (
+    <Button
+      size="icon"
+      variant="ghost"
+      className="size-10 rounded-full"
+      onClick={toggleTheme}
+    >
+      <Sun className="hidden size-5 dark:block" />
+      <Moon className="block size-5 dark:hidden" />
+      <span className="sr-only">Toggle theme</span>
+    </Button>
   );
 }

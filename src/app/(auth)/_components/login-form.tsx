@@ -34,14 +34,13 @@ export default function LoginForm() {
         password: data.password,
       },
       {
-        onResponse: () => {
-          setIsLoading(false);
-        },
         onError: (ctx) => {
           setError(ctx.error.message || ctx.error.statusText);
+          setIsLoading(false);
         },
         onSuccess: () => {
           location.replace("/");
+          setIsLoading(false);
         },
       }
     );

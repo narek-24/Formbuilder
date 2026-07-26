@@ -60,7 +60,9 @@ export default function FormRenderer({
       {fields.map((formField) => {
         if (!isVisible(formField, watchedValues)) return null;
 
-        const Comp = fieldRegistry.get(formField.type).Renderer;
+        const Comp = fieldRegistry.get(formField.type)?.Renderer;
+
+        if (!Comp) return null;
         return <Comp key={formField.id} formField={formField} form={form} />;
       })}
 

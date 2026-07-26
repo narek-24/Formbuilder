@@ -41,14 +41,13 @@ export default function RegisterForm() {
         name: data.name,
       },
       {
-        onResponse: () => {
-          setIsLoading(false);
-        },
         onSuccess: () => {
           location.replace("/");
+          setIsLoading(false);
         },
         onError: (ctx) => {
           setError(ctx.error.message || ctx.error.statusText);
+          setIsLoading(false);
         },
       }
     );
