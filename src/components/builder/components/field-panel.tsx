@@ -4,6 +4,7 @@ import { PointerActivationConstraints, PointerSensor } from "@dnd-kit/dom";
 import { fieldRegistry } from "../fields/registry";
 import { useDraggable } from "@dnd-kit/react";
 import { type FieldPlugin } from "../fields/registry";
+import type { LucideIcon } from "lucide-react";
 
 export default function FieldPanel() {
   const categorizedFields = fieldRegistry.getCategorized();
@@ -36,6 +37,7 @@ function FieldPanelItem({ field }: { field: FieldPlugin }) {
     id: `panel-${field.type}`,
     data: {
       type: field.type,
+      icon: field.icon,
       label: field.label,
       isPanelItem: true,
     },
@@ -52,11 +54,25 @@ function FieldPanelItem({ field }: { field: FieldPlugin }) {
   return (
     <button
       ref={ref}
-      type="button"
       className="flex cursor-grab flex-col items-center gap-2 rounded-lg border-2 p-3 text-sm font-medium hover:bg-muted active:cursor-grabbing"
     >
       <field.icon className="pointer-events-none size-7" />
       {field.label}
+    </button>
+  );
+}
+
+export function FieldPanelItemOverlay({
+  label,
+  Icon,
+}: {
+  label: string;
+  Icon: LucideIcon;
+}) {
+  return (
+    <button className="flex w-[122px] cursor-grab flex-col items-center gap-2 rounded-lg border-2 bg-card p-3 text-sm font-medium shadow-xl/10 active:cursor-grabbing dark:shadow-xl/50">
+      <Icon className="pointer-events-none size-7" />
+      {label}
     </button>
   );
 }

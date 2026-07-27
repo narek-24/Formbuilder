@@ -5,10 +5,11 @@ import { useBuilderStore } from "./hooks/use-builder-store";
 import { useMediaQuery } from "@/hooks/use-media-query";
 import { isSortable } from "@dnd-kit/react/sortable";
 import { FileText } from "lucide-react";
+import { cn } from "@/lib/utils";
 import TemplatesDialog from "./components/templates";
 import AddFieldDialog from "./components/dialogs/add-field-dialog";
-import FieldPanel from "./components/field-panel";
-import FieldItem from "./components/field-item";
+import FieldPanel, { FieldPanelItemOverlay } from "./components/field-panel";
+import FieldItem, { FieldItemOverlay } from "./components/field-item";
 
 export default function Builder() {
   const addField = useBuilderStore((state) => state.addField);
@@ -46,7 +47,11 @@ export default function Builder() {
 
       <DragOverlay dropAnimation={null}>
         {({ data }) =>
-          data.isPanelItem ? <div>Sidebar Item</div> : <div>Sortable item</div>
+          data.isPanelItem ? (
+            <FieldPanelItemOverlay Icon={data.icon} label={data.label} />
+          ) : (
+            <FieldItemOverlay field={data.field} mode={data.mode} />
+          )
         }
       </DragOverlay>
     </DragDropProvider>
@@ -57,9 +62,21 @@ function FieldsList() {
   const fields = useBuilderStore((state) => state.fields);
   const isMobile = useMediaQuery("(max-width: 768px)", { defaultValue: false });
 
+  const { ref, isDropTarget } = useDroppable({
+    id: `drop-zone`,
+  });
+
   if (fields.length === 0) {
     return (
-      <div className="mx-auto max-w-2xl pt-14 text-center">
+      <div
+        ref={ref}
+        className={cn(
+          "mx-auto w-full max-w-2xl rounded-xl border-2 border-transparent pt-14 text-center",
+          {
+            "border-dashed border-primary/60 bg-primary/5": isDropTarget,
+          }
+        )}
+      >
         <div className="mx-auto mb-6 flex size-18 items-center justify-center rounded-full border bg-muted">
           <FileText className="size-8.5 text-muted-foreground" />
         </div>
@@ -69,9 +86,9 @@ function FieldsList() {
         </h3>
 
         <p className="mx-auto mt-3 mb-8 max-w-md text-sm leading-relaxed text-muted-foreground">
-          Add a field from the left panel to get started, or choose a template
-          to create a form in seconds. You can reorder fields, configure logic,
-          and customize the experience at any time.
+          Drag a field here from the left panel to get started, or choose a
+          template to create a form in seconds. You can reorder fields,
+          configure logic, and customize the experience at any time.
         </p>
 
         <TemplatesDialog />
@@ -90,30 +107,21 @@ function FieldsList() {
         <FieldItem key={field.id} field={field} index={i} />
       ))}
 
-      <DropZone />
+      <div
+        ref={ref}
+        className={cn(
+          "relative h-9 rounded-xl border-2 border-dashed transition-all",
+          {
+            "border-primary/60 bg-primary/5": isDropTarget,
+          }
+        )}
+      >
+        <div className="flex h-full items-center justify-center text-xs font-medium tracking-[0.2rem] text-muted-foreground uppercase">
+          Drop here
+        </div>
+      </div>
 
       {isMobile && <AddFieldDialog />}
-    </div>
-  );
-}
-
-function DropZone() {
-  const { ref, isDropTarget } = useDroppable({
-    id: `drop-zone`,
-  });
-
-  return (
-    <div
-      ref={ref}
-      className={`relative h-9 rounded-xl border-2 border-dashed transition-all ${
-        isDropTarget
-          ? "border-primary bg-primary/10 shadow-[inset_0_0_0_1px_rgba(59,130,246,0.15)]"
-          : "border-muted-foreground/20"
-      }`}
-    >
-      <div className="flex h-full items-center justify-center text-xs font-medium tracking-[0.2em] text-muted-foreground/80 uppercase">
-        {isDropTarget ? "Drop here" : "Add field"}
-      </div>
     </div>
   );
 }

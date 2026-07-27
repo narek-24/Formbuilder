@@ -57,8 +57,8 @@ export default function FieldItem({
     useSortable({
       index,
       id: field.id,
+      data: { field, mode, isPanelItem: false },
       transition: { duration: 0 },
-      data: { type: "field", isPanelItem: false },
       plugins: [SortableKeyboardPlugin],
     });
 
@@ -87,7 +87,6 @@ export default function FieldItem({
       )}
 
       <div className="flex items-center gap-2">
-        {/* <MoveButtons fieldId={field.id} /> */}
         <Button size="icon" variant="ghost" ref={handleRef}>
           <GripVertical className="size-5 text-muted-foreground" />
         </Button>
@@ -121,6 +120,46 @@ export default function FieldItem({
   );
 }
 
+export function FieldItemOverlay({
+  field,
+  mode,
+}: {
+  field: FormSchemaField;
+  mode: FieldItemMode;
+}) {
+  const Icon = fieldRegistry.get(field.type).icon;
+  const isConditional = !!field.followUps;
+
+  return (
+    <div className="card relative px-3 pt-4 pb-3 shadow-xl/10 dark:shadow-xl/50">
+      <div className="flex items-center gap-2">
+        <Button size="icon" variant="ghost">
+          <GripVertical className="size-5 text-muted-foreground" />
+        </Button>
+
+        <div className="flex flex-grow items-center gap-2">
+          <div className="inline-flex size-7 shrink-0 items-center justify-center rounded bg-muted max-sm:hidden">
+            <Icon className="size-5" />
+          </div>
+          <h3 className="line-clamp-2 text-sm capitalize md:text-[15px] md:font-medium">
+            {fieldItemLabel(field)}
+          </h3>
+        </div>
+
+        <div className="flex shrink-0 items-center gap-2">
+          {isConditional && (
+            <span className="text-xs text-muted-foreground">Condtional</span>
+          )}
+        </div>
+      </div>
+
+      <div className="[&>*:first-child]:mt-3 [&>*:first-child]:px-1.5 [&>*:first-child]:pb-2">
+        <Content mode={mode} field={field} setToDefault={() => {}} />
+      </div>
+    </div>
+  );
+}
+
 function Content({
   mode,
   field,
@@ -144,31 +183,6 @@ function Content({
 
   return views[mode];
 }
-
-// function MoveButtons({ fieldId }: { fieldId: string }) {
-//   const moveField = useBuilderStore((state) => state.moveField);
-
-//   return (
-//     <div className="mr-1 flex flex-col [&>button]:text-muted-foreground">
-//       <Button
-//         size="icon-xs"
-//         variant="ghost"
-//         className="transition-none hover:bg-transparent hover:text-foreground"
-//         onClick={() => moveField(fieldId, "up")}
-//       >
-//         <ArrowUp className="size-4" />
-//       </Button>
-//       <Button
-//         size="icon-xs"
-//         variant="ghost"
-//         className="transition-none hover:bg-transparent hover:text-foreground"
-//         onClick={() => moveField(fieldId, "down")}
-//       >
-//         <ArrowDown className="size-4" />
-//       </Button>
-//     </div>
-//   );
-// }
 
 function ActionsDropdown({
   mode,
