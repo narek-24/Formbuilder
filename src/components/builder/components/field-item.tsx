@@ -2,12 +2,12 @@ import { useCallback, useState } from "react";
 import { type FormSchemaField } from "../schemas/form-schemas";
 import { useBuilderStore } from "../hooks/use-builder-store";
 import { fieldRegistry } from "../fields/registry";
+import { useSortable } from "@dnd-kit/react/sortable";
 import { Button } from "@/components/ui/button";
 import ConditionalForm from "./conditional-form";
 import {
-  ArrowDown,
-  ArrowUp,
   GitBranch,
+  GripVertical,
   Pencil,
   Plus,
   Settings,
@@ -27,6 +27,8 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown";
+import { SortableKeyboardPlugin } from "@dnd-kit/dom/sortable";
+import { cn } from "@/lib/utils";
 
 enum FieldItemMode {
   Default,
@@ -51,18 +53,44 @@ export default function FieldItem({
     field.isSaved ? FieldItemMode.Default : FieldItemMode.Editing
   );
 
-  const Icon = fieldRegistry.get(field.type).icon;
+  const { ref, handleRef, isDropTarget, isDragging, isDragSource } =
+    useSortable({
+      index,
+      id: field.id,
+      transition: { duration: 0 },
+      data: { type: "field", isPanelItem: false },
+      plugins: [SortableKeyboardPlugin],
+    });
 
   const setToDefault = useCallback(() => {
     setMode(FieldItemMode.Default);
   }, []);
 
+  const Icon = fieldRegistry.get(field.type).icon;
   const isConditional = !!field.followUps;
+  const showDropIndicator = isDropTarget && !isDragSource;
 
   return (
-    <div className="card relative px-3 pt-2 pb-3 md:px-4">
-      <div className="flex items-center gap-1">
-        <MoveButtons fieldId={field.id} />
+    <div
+      ref={ref}
+      className={cn("card relative px-3 pt-4 pb-3", {
+        "border-primary/60 bg-primary/5": showDropIndicator,
+        "opacity-50": isDragging,
+      })}
+    >
+      {showDropIndicator && (
+        <div className="absolute inset-x-3 -top-3 flex justify-center">
+          <div className="rounded-full border border-primary/40 bg-background px-3 py-1 text-[11px] font-semibold tracking-[0.2em] text-primary uppercase shadow-sm">
+            Drop here
+          </div>
+        </div>
+      )}
+
+      <div className="flex items-center gap-2">
+        {/* <MoveButtons fieldId={field.id} /> */}
+        <Button size="icon" variant="ghost" ref={handleRef}>
+          <GripVertical className="size-5 text-muted-foreground" />
+        </Button>
 
         <div className="flex flex-grow items-center gap-2">
           <div className="inline-flex size-7 shrink-0 items-center justify-center rounded bg-muted max-sm:hidden">
@@ -117,30 +145,30 @@ function Content({
   return views[mode];
 }
 
-function MoveButtons({ fieldId }: { fieldId: string }) {
-  const moveField = useBuilderStore((state) => state.moveField);
+// function MoveButtons({ fieldId }: { fieldId: string }) {
+//   const moveField = useBuilderStore((state) => state.moveField);
 
-  return (
-    <div className="mr-1 flex flex-col [&>button]:text-muted-foreground">
-      <Button
-        size="icon-xs"
-        variant="ghost"
-        className="transition-none hover:bg-transparent hover:text-foreground"
-        onClick={() => moveField(fieldId, "up")}
-      >
-        <ArrowUp className="size-4" />
-      </Button>
-      <Button
-        size="icon-xs"
-        variant="ghost"
-        className="transition-none hover:bg-transparent hover:text-foreground"
-        onClick={() => moveField(fieldId, "down")}
-      >
-        <ArrowDown className="size-4" />
-      </Button>
-    </div>
-  );
-}
+//   return (
+//     <div className="mr-1 flex flex-col [&>button]:text-muted-foreground">
+//       <Button
+//         size="icon-xs"
+//         variant="ghost"
+//         className="transition-none hover:bg-transparent hover:text-foreground"
+//         onClick={() => moveField(fieldId, "up")}
+//       >
+//         <ArrowUp className="size-4" />
+//       </Button>
+//       <Button
+//         size="icon-xs"
+//         variant="ghost"
+//         className="transition-none hover:bg-transparent hover:text-foreground"
+//         onClick={() => moveField(fieldId, "down")}
+//       >
+//         <ArrowDown className="size-4" />
+//       </Button>
+//     </div>
+//   );
+// }
 
 function ActionsDropdown({
   mode,

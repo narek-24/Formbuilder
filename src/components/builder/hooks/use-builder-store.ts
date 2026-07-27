@@ -24,7 +24,7 @@ interface Store {
   setFields: (fields: FormSchema) => void;
   editField: (field: FormSchemaField) => void;
   removeField: (id: string) => void;
-  moveField: (id: string, dir: "up" | "down") => void;
+  reorderField: (sourceIdx: number, destIdx?: number) => void;
 
   reset: () => void;
 }
@@ -52,17 +52,13 @@ export const useBuilderStore = create(
         set((state) => {
           if (typeof index === "number") {
             return {
-              fields: state.fields
-                .toSpliced(index, 0, field)
-                .filter((f) => f.isSaved || f.id === field.id),
-            };
-          } else {
-            return {
-              fields: state.fields
-                .filter((f) => f.isSaved || f.id === field.id)
-                .concat(field),
+              fields: state.fields.toSpliced(index, 0, field),
             };
           }
+
+          return {
+            fields: state.fields.concat(field),
+          };
         });
       },
 
@@ -84,22 +80,24 @@ export const useBuilderStore = create(
         }));
       },
 
-      moveField: (id, dir) => {
+      reorderField: (sourceIdx, destIdx?) => {
         set((state) => {
-          const idx = state.fields.findIndex((field) => field.id === id);
-          if (idx === -1) return { fields: state.fields };
+          const fields = [...state.fields];
 
-          const field = state.fields[idx]!;
-          const newIdx = idx + (dir === "up" ? -1 : 1);
+          if (sourceIdx < 0 || sourceIdx >= fields.length) {
+            return state;
+          }
 
-          if (newIdx < 0 || newIdx > state.fields.length)
-            return { fields: state.fields };
+          const [field] = fields.splice(sourceIdx, 1);
 
-          const fields = state.fields
-            .filter((field) => field.id !== id)
-            .toSpliced(newIdx, 0, field);
+          const targetIdx =
+            destIdx === undefined
+              ? fields.length
+              : Math.max(0, Math.min(destIdx, fields.length));
 
-          return { fields: fields };
+          fields.splice(targetIdx, 0, field!);
+
+          return { fields };
         });
       },
 

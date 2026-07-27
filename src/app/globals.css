@@ -16,7 +16,6 @@
   --input-border: hsl(0, 0%, 94%);
 
   --primary: hsl(0, 0%, 16%);
-  --primary-text: hsl(227, 57%, 35%);
   --primary-hover: hsl(0, 0%, 25%);
   --primary-foreground: hsl(0, 0%, 100%);
 
@@ -33,17 +32,16 @@
 }
 
 .dark {
-  --background: hsl(0, 0%, 6%);
+  --background: hsl(0, 0%, 7%);
   --foreground: hsl(0, 0%, 98%);
 
-  --card: hsl(0, 0%, 7%);
-  --popover: hsl(0, 0%, 8%);
+  --card: hsl(0, 0%, 8%);
+  --popover: hsl(0, 0%, 9%);
 
-  --input: hsl(0, 0%, 9%);
-  --input-border: hsl(0, 0%, 13%);
+  --input: hsl(0, 0%, 10%);
+  --input-border: hsl(0, 0%, 15%);
 
   --primary: hsl(0, 0%, 99%);
-  --primary-text: hsl(221, 68%, 65%);
   --primary-hover: hsl(0, 0%, 85%);
   --primary-foreground: hsl(0, 0%, 10%);
 
@@ -76,7 +74,6 @@
 
   --color-primary-foreground: var(--primary-foreground);
   --color-primary-hover: var(--primary-hover);
-  --color-primary-text: var(--primary-text);
   --color-primary: var(--primary);
 
   --color-popover: var(--popover);

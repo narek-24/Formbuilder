@@ -1,6 +1,7 @@
 ## TODO
 
-- Drag and drop
+- Dragoverlays
+- Droppable on no fields added state
 
 - Help dialog explaining how to use the builder
 - More field types (email, url, checkbox, date, time, rating scale, paragraph)
