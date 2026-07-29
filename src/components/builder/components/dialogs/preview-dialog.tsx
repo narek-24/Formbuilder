@@ -39,7 +39,9 @@ function Content() {
   const fields = useBuilderStore((state) => state.fields);
   const settings = useBuilderStore((state) => state.settings);
 
-  if (fields.length === 0) {
+  const filteredFields = fields.filter((f) => f.isSaved);
+
+  if (filteredFields.length === 0) {
     return (
       <div className="flex w-full flex-col items-center justify-center px-8">
         <h3 className="mb-2 text-lg font-semibold">No fields yet</h3>
@@ -64,7 +66,7 @@ function Content() {
       </div>
 
       <FormRenderer
-        fields={fields}
+        fields={filteredFields}
         onSubmit={(data: unknown) => alert(JSON.stringify(data))}
       />
     </>

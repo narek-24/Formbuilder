@@ -147,7 +147,7 @@ export default function OptionsFieldForm({ field, setToDefault }: FormProps) {
       <FieldSet className="gap-4">
         <FieldLegend variant="label">Options</FieldLegend>
         {/* <FieldDescription></FieldDescription> */}
-        <FieldGroup className="gap-4">
+        <FieldGroup className="gap-2">
           {options.map((option, index) => (
             <Controller
               key={option.id}

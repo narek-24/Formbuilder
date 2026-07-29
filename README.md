@@ -1,7 +1,6 @@
 ## TODO
 
-- Help dialog explaining how to use the builder
-- More field types (email, url, checkbox, date, time, rating scale, paragraph)
-- Documentation explaining how the builder works code wise, how to manage, add new fields and more.
+- More field types (email, url, checkbox, date, time, rating scale, paragraph).
+- Better handling of unsupported/corrupted field types, in fR.get(), create-validation.
+- Refactor how formSchema works and make it easier to new fields, registry source of truth.
 - Improvements for conditional logic, more operators (eq, contains, gte, lte), non empty.
-- Better handling of unsupported/corrupted field types, in fR.get(), create-validation

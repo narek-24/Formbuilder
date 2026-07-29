@@ -1,4 +1,5 @@
 import { useCallback, useState } from "react";
+import { SortableKeyboardPlugin } from "@dnd-kit/dom/sortable";
 import { type FormSchemaField } from "../schemas/form-schemas";
 import { useBuilderStore } from "../hooks/use-builder-store";
 import { fieldRegistry } from "../fields/registry";
@@ -27,7 +28,6 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown";
-import { SortableKeyboardPlugin } from "@dnd-kit/dom/sortable";
 import { cn } from "@/lib/utils";
 
 enum FieldItemMode {
@@ -42,7 +42,7 @@ function fieldItemLabel(field: FormSchemaField) {
   return field.type;
 }
 
-export default function FieldItem({
+export function FieldItem({
   field,
   index,
 }: {
@@ -87,7 +87,12 @@ export default function FieldItem({
       )}
 
       <div className="flex items-center gap-2">
-        <Button size="icon" variant="ghost" ref={handleRef}>
+        <Button
+          ref={handleRef}
+          size="icon"
+          variant="ghost"
+          className="cursor-grab hover:bg-transparent"
+        >
           <GripVertical className="size-5 text-muted-foreground" />
         </Button>
 

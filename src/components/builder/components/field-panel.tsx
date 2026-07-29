@@ -6,7 +6,7 @@ import { useDraggable } from "@dnd-kit/react";
 import { type FieldPlugin } from "../fields/registry";
 import type { LucideIcon } from "lucide-react";
 
-export default function FieldPanel() {
+export function FieldPanel() {
   const categorizedFields = fieldRegistry.getCategorized();
 
   return (

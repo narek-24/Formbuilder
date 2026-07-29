@@ -5,8 +5,8 @@ import {
   type FormSchema,
   type FormSchemaField,
 } from "../schemas/form-schemas";
-import { persist } from "zustand/middleware";
 import { create } from "zustand";
+import { persist } from "zustand/middleware";
 import { fieldRegistry } from "../fields/registry";
 
 interface Settings {
@@ -14,10 +14,18 @@ interface Settings {
   description: string;
 }
 
+interface DraggingField {
+  id: string;
+  isPanelItem: boolean;
+}
+
 interface Store {
   settings: Settings;
   setTitle: (title: string) => void;
   setDescription: (description: string) => void;
+
+  draggingField: DraggingField | null;
+  setDraggingField: (f: DraggingField | null) => void;
 
   fields: FormSchema;
   addField: (type: FieldType, index?: number) => void;
@@ -40,8 +48,12 @@ export const useBuilderStore = create(
         set((state) => ({ settings: { ...state.settings, description } }));
       },
 
-      fields: [],
+      draggingField: null,
+      setDraggingField: (draggingField) => {
+        set({ draggingField });
+      },
 
+      fields: [],
       setFields: (fields) => {
         set({ fields });
       },
@@ -108,7 +120,11 @@ export const useBuilderStore = create(
     {
       name: "form-builder",
       partialize: (state) => {
-        return { ...state, fields: state.fields.filter((f) => f.isSaved) };
+        return {
+          ...state,
+          draggingField: null,
+          fields: state.fields.filter((f) => f.isSaved),
+        };
       },
     }
   )

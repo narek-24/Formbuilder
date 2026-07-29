@@ -25,7 +25,7 @@ async function FormsList() {
           <FileQuestionMark className="size-8.5 text-muted-foreground" />
         </div>
 
-        <h1 className="mb-3 text-xl font-semibold tracking-tight text-foreground">
+        <h1 className="mb-3 text-xl font-semibold text-foreground">
           No forms yet
         </h1>
         <p className="mb-8 leading-6 text-balance text-muted-foreground">

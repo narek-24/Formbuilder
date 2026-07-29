@@ -78,9 +78,11 @@ function Content() {
   const settings = useBuilderStore((state) => state.settings);
   const reset = useBuilderStore((state) => state.reset);
 
+  const filteredFields = fields.filter((f) => f.isSaved);
+
   const title = settings.title.trim();
   const hasTitle = title.length > 0;
-  const hasFields = fields.length > 0;
+  const hasFields = filteredFields.length > 0;
   const canPublish = hasFields && hasTitle;
 
   const { execute, hasErrored, isPending } = useAction(createFormAction, {
@@ -98,7 +100,7 @@ function Content() {
     execute({
       title,
       description: settings.description,
-      content: JSON.stringify(fields),
+      content: JSON.stringify(filteredFields),
     });
   }
 
