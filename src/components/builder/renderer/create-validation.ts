@@ -30,7 +30,7 @@ export function createValidationSchema(form: FormSchema) {
     const schema = createFieldSchema(field);
     if (schema) {
       defaultValues[field.id] = getDefaultValue(field);
-      shape[field.id] = createFieldSchema(field);
+      shape[field.id] = schema;
     }
   });
 
