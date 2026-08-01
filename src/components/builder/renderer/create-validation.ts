@@ -5,15 +5,11 @@ import z from "zod";
 
 function createFieldSchema(field: FormSchemaField) {
   const fieldPlugin = fieldRegistry.get(field.type);
-
-  if (!fieldPlugin.createValidator) {
-    throw new Error(`Unsupported field type for validation: ${field.type}`);
-  }
+  if (!fieldPlugin.createValidator) return;
 
   const schema = fieldPlugin.createValidator(field);
 
-  // If a field is conditional then it shouldn't be required, since it might not even be shown.
-  return !!field.followUps ? schema.optional() : schema;
+  return field.followUps ? schema.optional() : schema;
 }
 
 function getDefaultValue(field: FormSchemaField) {
@@ -31,8 +27,11 @@ export function createValidationSchema(form: FormSchema) {
   const defaultValues: Record<string, any> = {};
 
   form.filter(isInputField).forEach((field) => {
-    defaultValues[field.id] = getDefaultValue(field);
-    shape[field.id] = createFieldSchema(field);
+    const schema = createFieldSchema(field);
+    if (schema) {
+      defaultValues[field.id] = getDefaultValue(field);
+      shape[field.id] = createFieldSchema(field);
+    }
   });
 
   return { schema: z.object(shape), defaultValues };

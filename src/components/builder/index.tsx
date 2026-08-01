@@ -113,19 +113,21 @@ function FieldsList() {
         <FieldItem key={field.id} field={field} index={i} />
       ))}
 
-      <div
-        ref={ref}
-        className={cn(
-          "relative h-14 rounded-xl border-2 border-dashed transition-all",
-          { "border-primary/60 bg-primary/5": isDropTarget }
-        )}
-      >
-        <div className="flex h-full items-center justify-center text-xs font-medium tracking-[0.2rem] text-muted-foreground uppercase">
-          Drop here
+      {isMobile ? (
+        <AddFieldDialog />
+      ) : (
+        <div
+          ref={ref}
+          className={cn(
+            "relative h-14 rounded-xl border-2 border-dashed transition-all",
+            { "border-primary/60 bg-primary/5": isDropTarget }
+          )}
+        >
+          <div className="flex h-full items-center justify-center text-xs font-medium tracking-[0.2rem] text-muted-foreground uppercase">
+            Drop here
+          </div>
         </div>
-      </div>
-
-      {isMobile && <AddFieldDialog />}
+      )}
     </div>
   );
 }

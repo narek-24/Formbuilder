@@ -27,9 +27,7 @@ export default function AddFieldDialog() {
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
-      <DialogTrigger render={<Button variant="secondary" />}>
-        Add new field
-      </DialogTrigger>
+      <DialogTrigger render={<Button />}>Add new field</DialogTrigger>
       <DialogContent>
         <DialogHeader>
           <DialogTitle className="sr-only">Choose a field</DialogTitle>
